@@ -1,0 +1,11 @@
+C:\Users\moker\AppData\Local\Temporary Projects\SQLAuthentication\bin\Debug\SQLAuthentication.exe.config
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\bin\Debug\SQLAuthentication.exe.config
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\bin\Debug\SQLAuthentication.exe
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\bin\Debug\SQLAuthentication.pdb
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\bin\Debug\EntityFramework.dll
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\bin\Debug\EntityFramework.xml
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\obj\Debug\SQLAuthentication.csprojResolveAssemblyReference.cache
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\obj\Debug\SQLAuthentication.exe
+C:\Users\moker\Documents\Visual Studio 2015\Projects\SQLAuthentication\SQLAuthentication\obj\Debug\SQLAuthentication.pdb
