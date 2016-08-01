@@ -11,7 +11,7 @@ namespace MusicApp.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.List = NeoQuery();
+            //ViewBag.List = NeoQuery();
 
 
             return View();
@@ -23,7 +23,7 @@ namespace MusicApp.Controllers
             {
                 List<string> ListOutput = new List<string>();
                 string output;
-               // session.Run("CREATE (a:User {name:'Kurtis'}), (b:User{name:'Melissa'})");
+                // session.Run("CREATE (a:User {name:'Kurtis'}), (b:User{name:'Melissa'})");
                 var result = session.Run("MATCH (n:User) RETURN n.name as name");
                 foreach (var record in result)
                 {

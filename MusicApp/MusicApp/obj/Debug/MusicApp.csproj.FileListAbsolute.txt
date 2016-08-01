@@ -171,3 +171,12 @@ C:\Users\Kurtis Lloyd\ProjectClass.Net\.net-Project\MusicApp\MusicApp\bin\Socket
 C:\Users\Kurtis Lloyd\ProjectClass.Net\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.xml
 C:\Users\Kurtis Lloyd\ProjectClass.Net\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.Abstractions.pdb
 C:\Users\Kurtis Lloyd\ProjectClass.Net\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.Abstractions.xml
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Neo4j.Driver.dll
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.Abstractions.dll
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.dll
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Neo4j.Driver.pdb
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Neo4j.Driver.xml
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.pdb
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.xml
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.Abstractions.pdb
+C:\Users\Brandon\Desktop\.net-Project\MusicApp\MusicApp\bin\Sockets.Plugin.Abstractions.xml
