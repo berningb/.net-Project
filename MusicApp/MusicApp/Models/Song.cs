@@ -9,8 +9,8 @@ namespace MusicApp.Models
     {
         public string Title { get; set; }
         public string Filename { get; set; }
-        public string Artst { get; set; }
-        public string Album { get; set; }
+        public Artist Artist { get; set; }
+        public List<Song> Album  { get; set; }
         public double length { get; set; }
 
     }
