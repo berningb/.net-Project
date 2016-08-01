@@ -16,6 +16,11 @@ namespace MusicApp.Controllers
 
             return View();
         }
+
+        public ActionResult Wall()
+        {
+            return View();
+        }
         public List<string> NeoQuery()
         {
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
