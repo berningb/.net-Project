@@ -9,8 +9,7 @@ namespace MusicApp.Models
     {
         public string Title { get; set; }
         public string Filename { get; set; }
-        public string Artst { get; set; }
-        public string Album { get; set; }
+        public Artist Owner { get; set; }
         public double length { get; set; }
 
     }
