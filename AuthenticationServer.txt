@@ -1,0 +1,2 @@
+server : mssql4.gear.host
+netauth, password!
