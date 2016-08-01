@@ -5,12 +5,10 @@ using System.Web;
 
 namespace MusicApp.Models
 {
-    public class Song
+    public class Album
     {
-        public string Title { get; set; }
-        public string Filename { get; set; }
+        public string Name { get; set; }
         public Artist Owner { get; set; }
-        public double length { get; set; }
-
+        public List<Song> songs { get; set; }
     }
 }
