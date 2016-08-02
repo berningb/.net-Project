@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Playlist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-header">Playlist</h2>
+
+
+<div class="row">
+    @{
+        for (int i = 0; i < 8; i++)
+        {
+            <div class="col-sm-4 box">
+                <a href="#">
+                    <div class="playlist">
+                        <img class="playlistImage" src="~/Images/test.jpg" />
+                    </div>
+                </a>
+            </div>
+        }
+    }
+</div>
+
+

@@ -33,3 +33,13 @@ textarea {
 .nav a{
     text-decoration: none;
 }
+.playlist{
+    height: 150px;
+    width: 200px;
+}
+.playlistImage{
+    width: 100%;
+}
+.box{
+    margin-bottom: 50px;
+}
