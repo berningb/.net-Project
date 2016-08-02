@@ -34,12 +34,14 @@ textarea {
     text-decoration: none;
 }
 .playlist{
-    height: 150px;
+    height: 200px;
     width: 200px;
 }
 .playlistImage{
-    width: 100%;
+    width: 200px;
+    height: 200px;
 }
 .box{
     margin-bottom: 50px;
+    margin: auto;
 }
