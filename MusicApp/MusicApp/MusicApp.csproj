@@ -231,12 +231,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-<<<<<<< HEAD
     <Content Include="Images\musicComposition.png" />
     <Content Include="Images\musicNote.png" />
-=======
     <Content Include="Images\test.jpg" />
->>>>>>> 7a23a736399e941ed6812d42e8d9165e76f2a38d
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
