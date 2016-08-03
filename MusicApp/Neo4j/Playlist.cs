@@ -1,18 +1,19 @@
-﻿using MusicApp.Interfaces;
+﻿using Neo4j.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MusicApp.Models
+namespace Neo4j
 {
-    public class Playlist : iLikeable, iSongCollection
+   public class Playlist : ILikeable, ISongCollection
     {
         public string Name { get; set; }
         public Artist Owner { get; set; }
         public List<Song> Songs { get; set; }
 
-        public void Add(iSongCollection collection)
+        public void Add(ISongCollection collection)
         {
             //itterate through colcetion, add each
         }
@@ -28,3 +29,4 @@ namespace MusicApp.Models
         }
     }
 }
+
