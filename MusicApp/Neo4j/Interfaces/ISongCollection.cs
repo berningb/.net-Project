@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neo4j.Interfaces
 {
-    interface ISongCollection
+   public interface ISongCollection
     {
+        void Add(Song song);
+        void Add(ISongCollection collection);
     }
 }

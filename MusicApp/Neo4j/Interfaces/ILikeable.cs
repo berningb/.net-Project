@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Neo4j.Interfaces
 {
-    interface ILikeable
+   public interface ILikeable
     {
+        void Like(Artist artist);
     }
 }

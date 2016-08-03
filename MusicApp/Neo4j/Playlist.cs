@@ -13,7 +13,7 @@ namespace Neo4j
         public Artist Owner { get; set; }
         public List<Song> Songs { get; set; }
 
-        public void Add(iSongCollection collection)
+        public void Add(ISongCollection collection)
         {
             //itterate through colcetion, add each
         }
