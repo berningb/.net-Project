@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Neo4j.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using MusicApp.Interfaces;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MusicApp.Models
+namespace Neo4j
 {
-    public class Artist
+   public class Artist 
     {
         public string Name { get; set; }
         public string Email { get; set; }
@@ -15,6 +16,6 @@ namespace MusicApp.Models
         public List<Playlist> Playlists { get; set; }
         public List<Artist> Friend { get; set; }
         public List<Artist> Following { get; set; }
-        public List<iLikeable> Likes { get; set; }
+        public List<ILikeable> Likes { get; set; }
     }
 }

@@ -1,12 +1,13 @@
-﻿using MusicApp.Interfaces;
+﻿using Neo4j.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MusicApp.Models
+namespace Neo4j
 {
-    public class Playlist : iLikeable, iSongCollection
+   public class Playlist : ILikeable, ISongCollection
     {
         public string Name { get; set; }
         public Artist Owner { get; set; }
@@ -27,4 +28,5 @@ namespace MusicApp.Models
             artist.Likes.Add(this);
         }
     }
+}
 }
