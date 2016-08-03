@@ -23,23 +23,40 @@ textarea {
     max-width: 280px;
 }
 
-.nav{
+.nav {
     padding-right: 15px;
 }
-.dropdown{
+
+.dropdown {
     height: auto;
     padding-top: 5px;
 }
-.nav a{
+
+.nav a {
     text-decoration: none;
 }
-.playlist{
-    height: 150px;
+
+.playlist {
+    height: 200px;
     width: 200px;
 }
-.playlistImage{
-    width: 100%;
+
+.playlistImageBox {
+    height: 200px;
+    width: 400px;
+    margin: auto;
 }
-.box{
-    margin-bottom: 50px;
+
+.img {
+    height: 200px;
+    width: 200px;
+}
+
+.box {
+    height: 200px;
+    width: 400px;
+    text-align: center;
+}
+.keeper{
+    margin-bottom: 100px;
 }
