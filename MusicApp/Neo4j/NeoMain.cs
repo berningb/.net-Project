@@ -33,7 +33,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
             using (var session = driver.Session())
             {
-                session.Run("CREATE (a:Artist {name:" + artist.Name + "}, {Email:" + artist.Email + "})");
+                session.Run("CREATE (a:Artist {name:" +  artist.Name + "}) SET a.Email = " + artist.Email + "RETURN a");
             }
         }
         public void CreatePlaylist(Playlist playlist, List<Song> songs)
