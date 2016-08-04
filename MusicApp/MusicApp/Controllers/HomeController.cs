@@ -27,7 +27,18 @@ namespace MusicApp.Controllers
             return View();
         }
 
+        public ActionResult Following()
+        {
+            return View();
+        }
 
-      
+
+        public ActionResult Overview()
+        {
+            return View();
+        }
+
+
+
     }
 }

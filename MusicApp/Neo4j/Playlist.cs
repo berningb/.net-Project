@@ -9,13 +9,14 @@ namespace Neo4j
 {
    public class Playlist : ILikeable, ISongCollection
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
         public Artist Owner { get; set; }
         public List<Song> Songs { get; set; }
+        public List<Artist> Likees { get; set; }
 
         public void Add(ISongCollection collection)
         {
-            //itterate through colcetion, add each
+            Songs.AddRange(collection.Songs);
         }
 
         public void Add(Song song)
@@ -26,6 +27,7 @@ namespace Neo4j
         public void Like(Artist artist)
         {
             artist.Likes.Add(this);
+            Likees.Add(artist);
         }
     }
 }
