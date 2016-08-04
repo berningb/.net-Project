@@ -14,7 +14,7 @@ namespace Neo4j
         public List<Song> Songs { get; set; }
         public List<Album> Albums { get; set; }
         public List<Playlist> Playlists { get; set; }
-        public List<Artist> Friend { get; set; }
+        public List<Artist> Friends { get; set; }
         public List<Artist> Following { get; set; }
         public List<ILikeable> Likes { get; set; }
     }

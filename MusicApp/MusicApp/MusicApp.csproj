@@ -283,6 +283,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Wall.cshtml" />
     <Content Include="Views\Home\Playlist.cshtml" />
+    <Content Include="Views\Home\Likes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

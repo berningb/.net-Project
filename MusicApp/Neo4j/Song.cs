@@ -13,10 +13,12 @@ namespace Neo4j
         public string Filename { get; set; }
         public Artist Owner { get; set; }
         public double length { get; set; }
+        public List<Artist> Likees { get; set; }
 
         public void Like(Artist artist)
         {
             artist.Likes.Add(this);
+            Likees.Add(artist);
         }
 
     }
