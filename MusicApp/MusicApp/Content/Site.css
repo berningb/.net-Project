@@ -43,8 +43,9 @@ textarea {
 
 .playlistImageBox {
     height: 200px;
-    width: 400px;
     margin: auto;
+    display: flex;
+    align-items: center;
 }
 
 .img {
@@ -53,10 +54,31 @@ textarea {
 }
 
 .box {
-    height: 200px;
-    width: 400px;
     text-align: center;
+    margin: auto;
 }
-.keeper{
+
+.keeper {
     margin-bottom: 100px;
+    height: auto;
+    display: flex;
+}
+
+
+.record {
+    position: absolute;
+    height: 130px;
+    width: auto;
+    text-align: center;
+    left: 162px;
+    top: 50px;
+    color: transparent;
+}
+
+.itag {
+    font-size: 5em;
+}
+
+.record:hover{
+    color: white;
 }
