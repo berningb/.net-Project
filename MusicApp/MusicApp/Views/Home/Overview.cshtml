@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="page-header">Albums</h1>
+<div class="row">
+    @{
+        for (int i = 0; i < 10; i++)
+        {
+            <div class="col-sm-3 keeper">
+                <div class="box">
+                    <img class="img-circle img" src="~/Images/test.jpg" />
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<h1 class="page-header">PLaylists</h1>
+<div class="row">
+@{
+    for (int i = 0; i < 5; i++)
+    {
+        <div class="col-sm-3 keeper">
+            <div class="box">
+                <img class="img-circle img" src="~/Images/test.jpg" />
+            </div>
+        </div>
+    }
+}
+    </div>
+
+<h1 class="page-header">Following</h1>
+@{
+    for (int i = 0; i < 12; i++)
+    {
+        <div class="col-sm-3 keeper">
+            <div class="box">
+                <img class="img-circle img" src="~/Images/test.jpg" />
+            </div>
+        </div>
+    }
+}
+
+<h1 class="page-header">Friends</h1>
+@{
+    for (int i = 0; i < 8; i++)
+    {
+        <div class="col-sm-3 keeper">
+            <div class="box">
+                <img class="img-circle img" src="~/Images/test.jpg" />
+            </div>
+        </div>
+    }
+}
+
+<h1 class="page-header">Likes</h1>
+@{
+    for (int i = 0; i < 10; i++)
+    {
+        <div class="col-sm-3 keeper">
+            <div class="box">
+                <img class="img-circle img" src="~/Images/test.jpg" />
+            </div>
+        </div>
+    }
+}
+</div>
