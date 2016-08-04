@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="uploadSong" method="post" class="basic-grey">
+    <h1>
+        Add Item
+    </h1>
+    <label>
+        <span>Name :</span>
+        <input id="name" type="text" name="name" placeholder="name the song!" required />
+    </label>
+
+    <label>
+        <span>Image :</span>
+        <input id="image" type="file" name="image" placeholder="the image"  />
+    </label>
+
+    <label>
+        <span>Song :</span>
+        <input id="song" type="file" name="song" placeholder="the song" required />
+    </label>
+
+    <label>
+        <span>&nbsp;</span>
+        <input type="submit" class="button" value="Submit" />
+    </label>
+</form>
+
+

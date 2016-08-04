@@ -41,7 +41,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
                 using(var session = driver.Session())
             {
-                session.Run("CREATE (a:Playlist {name:" + playlist.Name + "}, ");
+                session.Run("CREATE (a:Playlist {name:" + playlist.Title + "}, ");
             }
         }
         public void CreateSong()
