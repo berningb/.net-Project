@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Neo4j.Driver.V1;
+using Neo4j.Interfaces;
 
 namespace Neo4j
 {
-    public class NeoMain
+    public static class NeoMain
     {
-        public List<string> NeoQuery()
+        public static List<string> NeoQuery()
         {
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
             using (var session = driver.Session())
@@ -28,7 +29,7 @@ namespace Neo4j
 
         }
 
-        public void CreateArtist(Artist artist)
+        public static void CreateArtist(Artist artist)
         {
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
             using (var session = driver.Session())
@@ -36,22 +37,49 @@ namespace Neo4j
                 session.Run("CREATE (a:Artist {name:" +  artist.Name + "}) SET a.Email = " + artist.Email + "RETURN a");
             }
         }
-        public void CreatePlaylist(Playlist playlist, List<Song> songs)
+        public static void Like(Artist artist, ILikeable likedThing)
+        {
+            // likedThing -Likee-> artist
+            // artist -Likes-> likedThing
+        }
+        public static void CreateSong(Song song)
+        {
+            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
+            using (var session = driver.Session())
+            {
+                session.Run("CREATE (a:Song {title:" + song.Title + "}, ");
+            }
+            // song -owner-> song.Owner
+            // song.Owner -Songs-> song
+        }
+        public static void CreatePlaylist(Playlist playlist)
         {
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
                 using(var session = driver.Session())
             {
                 session.Run("CREATE (a:Playlist {name:" + playlist.Title + "}, ");
             }
+            // palylist -owner-> playlist.Owner
+            // playlist.Owner -Playlists-> playlist
         }
-        public void CreateSong()
+        
+        public static void CreateAlbum(Album album)
         {
-
+            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
+            using (var session = driver.Session())
+            {
+                session.Run("CREATE (a:Album {name:" + album.Title + ", owner:" + album.Owner + " }, "); 
+            }
+            // album -owner-> album.Owner
+            // album.Owner -Albums-> album
         }
-        public void Album()
+        public static void AddSongToCollection(ISongCollection collection, Song song, Artist currentUser)
         {
-
+            bool authorized = (collection is Album && collection.Owner != currentUser) ? false : true;
+            if (authorized)
+            {
+                // do it
+            }
         }
-
     }
 }
