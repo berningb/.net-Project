@@ -31,18 +31,13 @@ namespace Neo4j
             Title = title;
             Length = length;
 
-            // Neo4j new Song(this)
-            // Neo4j owner(Artist) -Songs-> this(Song)
+            NeoMain.CreateSong(this);
         }
-
         public void Like(Artist artist)
         {
             artist.Likes.Add(this);
-            // Neo4j artist -likes-> this(Album)
-
             Likees.Add(artist);
-            // Neo4j this(Album) -likees-> artist
+            NeoMain.Like(artist, this);
         }
-
     }
 }

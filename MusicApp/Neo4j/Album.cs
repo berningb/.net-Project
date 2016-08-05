@@ -22,42 +22,28 @@ namespace Neo4j
             Songs = new List<Song>();
             Likees = new List<Artist>();
 
-            // Neo4j new Album(this)
-            // Neo4j owner -Albums-> this(Album)
+            NeoMain.CreateAlbum(this);
         }
-
-        public void Add(ISongCollection collection)
+        public void Add(ISongCollection collection, Artist currentUser)
         {
-            /*
+            foreach (Song song in collection.Songs)
+            {
+                Add(song, currentUser);
+            }
+        }
+        public void Add(Song song, Artist currentUser)
+        {
             if (Owner == currentUser)
             {
-                Songs.AddRange(collection.Songs);
-                foreach (Song song in collection.Songs)
-                {
-                    // Neo4j this(Album) -Songs-> song
-                }
+                Songs.Add(song);
+                NeoMain.AddSongToCollection(this, song, currentUser);
             }
-            */
-        }
-        public void Add(Song song)
-        {
-            /*
-            if (Owner == currentUser)
-            {
-                Songs.Add(song)
-                // Neo4j this(Album) -Songs-> song
-            }
-            */
         }
         public void Like(Artist artist)
         {
             artist.Likes.Add(this);
-            // Neo4j artist -likes-> this(Album)
-
             Likees.Add(artist);
-            // Neo4j this(Album) -likees-> artist
+            NeoMain.Like(artist, this);
         }
-
-
     }
 }
