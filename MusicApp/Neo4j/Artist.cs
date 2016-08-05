@@ -30,7 +30,7 @@ namespace Neo4j
             Following = new List<Artist>();
             Likes = new List<ILikeable>();
 
-            NeoMain.CreateArtist(this);
+            //NeoMain.CreateArtist(this);
         }
     }
 }

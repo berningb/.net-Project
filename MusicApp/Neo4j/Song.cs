@@ -31,13 +31,13 @@ namespace Neo4j
             Title = title;
             Length = length;
 
-            NeoMain.CreateSong(this);
+           // NeoMain.CreateSong(this);
         }
         public void Like(Artist artist)
         {
             artist.Likes.Add(this);
             Likees.Add(artist);
-            NeoMain.Like(artist, this);
+            //NeoMain.Like(artist, this);
         }
     }
 }

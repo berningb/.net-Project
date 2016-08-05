@@ -41,21 +41,21 @@ namespace MusicApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadSong(string name, HttpPostedFile image, HttpPostedFile song )
-        {
-            Song newSong = new Song();
+        //public ActionResult UploadSong(string name, HttpPostedFile image, HttpPostedFile song )
+        //{
+        //  //  Song newSong = new Song();
 
-            newSong.Title = name;
-            //newSong.File = song;
-            //newSong.Image = image;
-            //newSong.SongFileName = song.FileName;
-            //newSong.ImageFileName = image.FileName;
-            //newSong.length = song.ContentLength;
-            //newSong.Owner.Name = User.Identity.Name;
+        //    newSong.Title = name;
+        //    //newSong.File = song;
+        //    //newSong.Image = image;
+        //    //newSong.SongFileName = song.FileName;
+        //    //newSong.ImageFileName = image.FileName;
+        //    //newSong.length = song.ContentLength;
+        //    //newSong.Owner.Name = User.Identity.Name;
             
-            return View(newSong);
+        //    return View(newSong);
 
-        }
+        //}
 
         public ActionResult Overview()
         {

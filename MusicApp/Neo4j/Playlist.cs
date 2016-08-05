@@ -22,7 +22,7 @@ namespace Neo4j
             Songs = new List<Song>();
             Likees = new List<Artist>();
 
-            NeoMain.CreatePlaylist(this);
+          //  NeoMain.CreatePlaylist(this);
         }
         public void Add(ISongCollection collection, Artist currentUser)
         {
@@ -34,13 +34,13 @@ namespace Neo4j
         public void Add(Song song, Artist currentUser)
         {
             Songs.Add(song);
-            NeoMain.AddSongToCollection(this, song, null);
+            //NeoMain.AddSongToCollection(this, song, null);
         }
         public void Like(Artist artist)
         {
             artist.Likes.Add(this);
             Likees.Add(artist);
-            NeoMain.Like(artist, this);
+            //NeoMain.Like(artist, this);
         }
     }
 }

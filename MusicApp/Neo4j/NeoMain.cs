@@ -33,7 +33,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
             using (var session = driver.Session())
             {
-                session.Run("CREATE (a:Artist {name:" +  artist.Name + "}) SET a.Email = " + artist.Email );
+                session.Run("CREATE (a:Artist {name:"+ "'"+ artist.Name + "'"+ "}) SET a.Email = " + "'"+ artist.Email +"'");
             }
         }
         public void CreatePlaylist(Playlist playlist, List<Song> songs)
@@ -49,7 +49,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
                 using(var session = driver.Session())
             {
-                session.Run("CREATE (a:Song {Title:" + song.Title + "}) SET a.Filename = " + song.Filename + ", a.length" + song.length);
+                session.Run("CREATE (a:Song {Title:" + song.Title + "}) SET a.Filename = " + song.ImageFileName + ", a.length" + song.Length);
                 session.Run("MATCH (b:Artist {name: " + artist.Name + "}), (c:Song {Title: " + song.Title + "}) CREATE (b)-[:OWN]->(c)");
             }
 
@@ -78,7 +78,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
             using (var session = driver.Session())
             {
-                var result = session.Run("MATCH (a:Artist")
+                var result = session.Run("MATCH (a:Artist");
             }
 
                 return artists;
