@@ -14,22 +14,36 @@ namespace Neo4j
         public List<Song> Songs { get; set; }
         public List<Artist> Likees { get; set; }
 
-        public void Add(ISongCollection collection)
+        //We need to use a constructor because we need to propery instantiate new model objects on Neo4j
+        public Album(string title, Artist owner)
         {
-            //if artist == owner
-            //Songs.AddRange(collection.Songs);
+            Title = title;
+            Owner = owner;
+            Songs = new List<Song>();
+            Likees = new List<Artist>();
+
+            NeoMain.CreateAlbum(this);
         }
-        public void Add(Song song)
+        public void Add(ISongCollection collection, Artist currentUser)
         {
-            //if artist == owner
-            //Songs.Add(song);
+            foreach (Song song in collection.Songs)
+            {
+                Add(song, currentUser);
+            }
+        }
+        public void Add(Song song, Artist currentUser)
+        {
+            if (Owner == currentUser)
+            {
+                Songs.Add(song);
+                NeoMain.AddSongToCollection(this, song, currentUser);
+            }
         }
         public void Like(Artist artist)
         {
             artist.Likes.Add(this);
             Likees.Add(artist);
+            NeoMain.Like(artist, this);
         }
-
-
     }
 }
