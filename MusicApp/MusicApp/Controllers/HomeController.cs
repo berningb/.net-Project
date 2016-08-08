@@ -42,7 +42,6 @@ namespace MusicApp.Controllers
 
 
         public ActionResult Upload()
-        public List<string> NeoQuery()
         {
             return View();
         }
