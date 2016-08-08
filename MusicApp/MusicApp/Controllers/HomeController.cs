@@ -32,6 +32,36 @@ namespace MusicApp.Controllers
         public ActionResult Following()
         {
             return View();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
         [HttpGet]

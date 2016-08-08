@@ -78,7 +78,24 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
             using (var session = driver.Session())
             {
-                var result = session.Run("MATCH (a:Artist");
+                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})-[:FOLLOWING]-> (b:Artist) return b");
+                foreach (var record in result)
+                {
+                    string output = ($"{ record["name"].As<string>()}");
+                    outputFollowers.Add(output);
+                }
+                foreach (var stringOutput in outputFollowers)
+                {
+                    foreach (var artistsList in getAllArtist())
+                    {
+                        if (stringOutput == artistsList.Name)
+                        {
+                            Artist Finalartist = artistsList;
+                            artists.Add(Finalartist);
+                        }
+                    }
+                }
+
             }
 
                 return artists;
