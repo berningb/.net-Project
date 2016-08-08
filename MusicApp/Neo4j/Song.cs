@@ -12,7 +12,7 @@ namespace Neo4j
     {
         public Artist Owner { get; set; }
         public List<Artist> Likees { get; set; }
-        public HttpPostedFile File { get; set; }
+        public HttpPostedFileBase File { get; set; }
         public HttpPostedFile Image { get; set; }
         public string SongFileName { get; set; }
         public string ImageFileName { get; set; }
@@ -24,7 +24,7 @@ namespace Neo4j
         {
             Owner = owner;
             Likees = new List<Artist>();
-            File = file;
+           // File = file;
             Image = image;
             SongFileName = songFileName;
             ImageFileName = imageFIleName;
@@ -32,6 +32,13 @@ namespace Neo4j
             Length = length;
 
            // NeoMain.CreateSong(this);
+        }
+
+        public Song(Artist owner, HttpPostedFileBase file)
+        {
+            Owner = owner;
+            File = file;
+
         }
         public void Like(Artist artist)
         {
