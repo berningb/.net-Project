@@ -5,24 +5,24 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav">
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Upload", "Upload")</li>
+           
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle myDrop" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.GetUserName() <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>@Html.ActionLink("Playlists", "Playlist")</li>
-                    <li><a href="#">Friends</a></li>
+                    <li>@Html.ActionLink("Uploads", "Uploads")</li>
                     <li>@Html.ActionLink("Following", "Following")</li>
-                    <li><a href="#">Likes</a></li>
-                    <li><a href="#">Uploads</a></li>
                     <li>@Html.ActionLink("Overview", "Overview")</li>
                     <li role="separator" class="divider"></li>
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-
                     <li>
                         @Html.ActionLink("manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
                     </li>
                 </ul>
             </li>
+
         </ul>
     }
 }

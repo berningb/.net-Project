@@ -53,8 +53,6 @@ namespace MusicApp.Controllers
         }
 
         [HttpPost]
-
-
         public ActionResult UploadSong()
         {
             web.HttpPostedFileBase file = null;
@@ -75,6 +73,11 @@ namespace MusicApp.Controllers
 
             return View();
 
+        }
+
+        public ActionResult Uploads()
+        {
+            return View();
         }
 
         public ActionResult Overview()

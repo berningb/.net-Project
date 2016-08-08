@@ -23,15 +23,6 @@ textarea {
     max-width: 280px;
 }
 
-.nav {
-    padding-right: 15px;
-}
-
-.dropdown {
-    height: auto;
-    padding-top: 5px;
-}
-
 .nav a {
     text-decoration: none;
 }
