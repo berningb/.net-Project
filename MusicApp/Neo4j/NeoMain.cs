@@ -47,13 +47,35 @@ namespace Neo4j
         public void CreateSong(Song song, Artist artist)
         {
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
-                using(var session = driver.Session())
+            using (var session = driver.Session())
             {
                 session.Run("CREATE (a:Song {Title:" + song.Title + "}) SET a.Filename = " + song.ImageFileName + ", a.length" + song.Length);
                 session.Run("MATCH (b:Artist {name: " + artist.Name + "}), (c:Song {Title: " + song.Title + "}) CREATE (b)-[:OWN]->(c)");
             }
 
         }
+            public Artist getArtist(string name)
+        {
+
+            Artist arty = null;
+            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
+            using (var session = driver.Session())
+            {
+               
+             var output = session.Run("MATCH (b:Artist {name: " + "'" + name + "'" + "}) return b");
+
+                foreach (var item in output)
+                {
+                    string artistName = ($"{ item["name"].As<string>()}");
+                    string artistEmail = ($"{ item["Email"].As<string>()}");
+                     arty = new Artist(artistName, artistEmail);
+
+                }
+
+            }
+            return arty;
+
+            }
         public void AddFriend(Artist fromArtist, Artist toArtist)
         {
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
