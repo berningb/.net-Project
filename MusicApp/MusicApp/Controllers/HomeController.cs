@@ -38,31 +38,7 @@ namespace MusicApp.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
 
         }
         public ActionResult ProfilePage()

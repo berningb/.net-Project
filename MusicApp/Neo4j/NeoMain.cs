@@ -49,8 +49,8 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
             using (var session = driver.Session())
             {
-                session.Run("CREATE (a:Song {Title:" + song.Title + "}) SET a.Filename = " + song.ImageFileName + ", a.length" + song.Length);
-                session.Run("MATCH (b:Artist {name: " + artist.Name + "}), (c:Song {Title: " + song.Title + "}) CREATE (b)-[:OWN]->(c)");
+                session.Run("CREATE (a:Song {Image:" + "'" + song.File.FileName + "'" +"})"); //"}) /*SET a.Filename = " + song.ImageFileName + ", a.length" + song.Length);
+              //  session.Run("MATCH (b:Artist {name: " + song.Owner + "}), (c:Song {Title: " + song.Title + "}) CREATE (b)-[:OWN]->(c)");
             }
 
         }
