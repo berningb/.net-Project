@@ -83,6 +83,54 @@ namespace Neo4j
 
                 return artists;
         }
+        public List<Artist> getAllArtist()
+        {
+            List<Artist> artistList = new List<Artist>();
+            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH (n:Artist) return n");
+
+                foreach (var item in result)
+                {
+                    string name = ($"{ item["name"].As<string>()}");
+                    string email = ($"{ item["Email"].As<string>()}");
+
+                    Artist artist = new Artist(name, email);
+                    artistList.Add(artist);
+                }
+
+            }
+            return artistList;
+        }
+        public List<Artist> getFriends(Artist artist)
+        {
+            List<string> outputFollowers = new List<string>();
+            List<Artist> artists = new List<Artist>();
+
+            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH (a:Artist {name: " +"'"+artist.Name +"'" +"})-[:FRIENDS]-> (b:Artist) return b");
+                foreach (var record in result)
+                {
+                    string output = ($"{ record["name"].As<string>()}");
+                    outputFollowers.Add(output);
+                }
+                foreach (var stringOutput in outputFollowers)
+                {
+                   foreach(var artistsList in getAllArtist())
+                    {
+                        if(stringOutput == artistsList.Name)
+                        {
+                            Artist Finalartist = artistsList;
+                            artists.Add(Finalartist);
+                        }
+                    }
+                }
+            }
+            return artists;
+        }
         public void Album()
         {
 
