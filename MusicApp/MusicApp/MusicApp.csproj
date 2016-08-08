@@ -230,6 +230,7 @@
     <Content Include="Images\test2.jpg" />
     <Content Include="Images\musicComposition.png" />
     <Content Include="Images\musicNote.png" />
+    <Content Include="Images\profile.png" />
     <Content Include="Images\test.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -290,6 +291,7 @@
     <Content Include="Views\Home\Following.cshtml" />
     <Content Include="Views\Home\Upload.cshtml" />
     <Content Include="Views\Home\UploadSong.cshtml" />
+    <Content Include="Views\Home\ProfilePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Images\" />

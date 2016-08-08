@@ -35,8 +35,14 @@ namespace MusicApp.Controllers
         {
             return View();
         }
+        public ActionResult ProfilePage()
+        {
+            return View();
+        }
+
 
         public ActionResult Upload()
+        public List<string> NeoQuery()
         {
             return View();
         }
