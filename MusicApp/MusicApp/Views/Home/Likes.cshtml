@@ -1,13 +1,9 @@
 ﻿@using Neo4j.Interfaces
 @model List<ILikeable>
-@{
-    ViewBag.Title = "Likes";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
 <h2 class="page-header">Likes</h2>
 
-@foreach (ILikeable item in Model)
+@*@foreach (ILikeable item in Model)
 {
     <div class="col-sm-4 keeper">
         <a href="#">
@@ -19,5 +15,5 @@
             </div>
         </a>
     </div>
-}
+}*@
 

@@ -13,18 +13,18 @@ namespace Neo4j
         public Artist Owner { get; set; }
         public List<Artist> Likees { get; set; }
         public HttpPostedFileBase File { get; set; }
-        public HttpPostedFile Image { get; set; }
+        public HttpPostedFileBase Image { get; set; }
         public string SongFileName { get; set; }
         public string ImageFileName { get; set; }
         public string Title { get; set; }
         public double Length { get; set; }
 
         //We need to use a constructor because we need to propery instantiate new model objects on Neo4j
-        public Song(Artist owner, HttpPostedFile file, HttpPostedFile image, string songFileName, string imageFIleName, string title, double length)
+        public Song(Artist owner, HttpPostedFileBase file, HttpPostedFileBase image, string songFileName, string imageFIleName, string title, double length)
         {
             Owner = owner;
             Likees = new List<Artist>();
-           // File = file;
+            File = file;
             Image = image;
             SongFileName = songFileName;
             ImageFileName = imageFIleName;
@@ -34,10 +34,12 @@ namespace Neo4j
            // NeoMain.CreateSong(this);
         }
 
-        public Song(Artist owner, HttpPostedFileBase file)
+        public Song(Artist owner, HttpPostedFileBase file, HttpPostedFileBase image, string title)
         {
             Owner = owner;
             File = file;
+            Image = image;
+            Title = title;
 
         }
         public void Like(Artist artist)

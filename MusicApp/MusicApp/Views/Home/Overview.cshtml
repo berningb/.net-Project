@@ -1,75 +1,55 @@
 ﻿
 @{
-    ViewBag.Title = "Overview";
+    ViewBag.Title = "ProfilePage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="page-header">Albums</h1>
-<div class="row">
-    @{
-        for (int i = 0; i < 10; i++)
-        {
-            <div class="col-sm-3 keeper">
-                <div class="box">
-                    <img class="img-circle img" src="~/Images/test.jpg" />
-                </div>
+<div id="profileRectangle">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                
             </div>
-        }
-    }
+            <div class="col-sm-2">
+                <img src="~/Images/profile.png" class="img-rounded" alt="profile">
+            </div>
+            <div class="col-sm-2">
+                <h3>Username</h3>
+            </div>
+            <div class="col-sm-8">
+
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#uploads">Uploads</a></li>
+        <li><a data-toggle="tab" href="#following">Following</a></li>
+        <li><a data-toggle="tab" href="#likes">Likes</a></li>
+        <li><a data-toggle="tab" href="#playlist">Playlist</a></li>
+        <li><a data-toggle="tab" href="#overview">Overview</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="uploads" class="tab-pane fade in active">
+            @Html.Partial("uploads")
+        </div>
+        <div id="following" class="tab-pane fade">
+           @Html.Partial("Following")
+        </div>
+        <div id="likes" class="tab-pane fade">
+            @Html.Partial("Likes")
+        </div>
+        <div id="playlist" class="tab-pane fade">
+            @Html.Partial("Playlist")
+        </div>
+        @*<div id="overview" class="tab-pane fade">
+            @Html.Partial("Overview")
+        </div>*@
+    </div>
 </div>
 
-<h1 class="page-header">PLaylists</h1>
-<div class="row">
-    @{
-        for (int i = 0; i < 5; i++)
-        {
-            <div class="col-sm-3 keeper">
-                <div class="box">
-                    <img class="img-circle img" src="~/Images/test.jpg" />
-                </div>
-            </div>
-        }
-    }
-</div>
 
-<h1 class="page-header">Following</h1>
-<div class="row">
-    @{
-        for (int i = 0; i < 12; i++)
-        {
-            <div class="col-sm-3 keeper">
-                <div class="box">
-                    <img class="img-circle img" src="~/Images/test.jpg" />
-                </div>
-            </div>
-        }
-    }
-</div>
-
-<h1 class="page-header">Friends</h1>
-<div class="row">
-    @{
-        for (int i = 0; i < 8; i++)
-        {
-            <div class="col-sm-3 keeper">
-                <div class="box">
-                    <img class="img-circle img" src="~/Images/test.jpg" />
-                </div>
-            </div>
-        }
-    }
-</div>
-
-<h1 class="page-header">Likes</h1>
-<div class="row">
-    @{
-        for (int i = 0; i < 10; i++)
-        {
-            <div class="col-sm-3 keeper">
-                <div class="box">
-                    <img class="img-circle img" src="~/Images/test.jpg" />
-                </div>
-            </div>
-        }
-    }
-</div>

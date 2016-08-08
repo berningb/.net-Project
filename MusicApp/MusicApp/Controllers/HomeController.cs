@@ -41,7 +41,7 @@ namespace MusicApp.Controllers
             
 
         }
-        public ActionResult ProfilePage()
+        public ActionResult Overview()
         {
             return View();
         }
@@ -53,22 +53,32 @@ namespace MusicApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadSong()
+        public ActionResult UploadSong(string title)
         {
-            web.HttpPostedFileBase file = null;
+            web.HttpPostedFileBase songFile = null;
+            web.HttpPostedFileBase imageFile = null;
             if (Request.Files.Count > 0)
             {
-                 file = Request.Files[0];
+                 songFile = Request.Files[0];
 
-                if (file != null && file.ContentLength > 0)
+                if (songFile != null && songFile.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/Images"), fileName);
-                    file.SaveAs(path);
+                    var fileName = Path.GetFileName(songFile.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/Songs"), fileName);
+                    songFile.SaveAs(path);
+                }
+
+                imageFile = Request.Files[1];
+
+                if (imageFile != null && imageFile.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(imageFile.FileName);
+                    var path2 = Path.Combine(Server.MapPath("~/App_Data/Images"), fileName);
+                    imageFile.SaveAs(path2);
                 }
             }
             Artist arty= neo.getArtist(web.HttpContext.Current.User.Identity.Name);
-            Song song = new Song(arty, file);
+            Song song = new Song(arty, songFile, imageFile, title);
             neo.CreateSong(song, arty);
 
             return View();
@@ -79,12 +89,7 @@ namespace MusicApp.Controllers
         {
             return View();
         }
-
-        public ActionResult Overview()
-        {
-            return View();
-        }
-
+        
 
 
     }
