@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Neo4j.Driver.V1;
+using System.IO;
+using Neo4j;
 
 namespace MusicApp.Controllers
 {
@@ -27,29 +29,46 @@ namespace MusicApp.Controllers
             return View();
         }
 
+        public ActionResult Following()
+        {
+            return View();
+        }
         public ActionResult ProfilePage()
         {
             return View();
         }
 
+        [HttpGet]
 
+        public ActionResult Upload()
         public List<string> NeoQuery()
         {
-            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
-            using (var session = driver.Session())
-            {
-                List<string> ListOutput = new List<string>();
-                string output;
-                // session.Run("CREATE (a:User {name:'Kurtis'}), (b:User{name:'Melissa'})");
-                var result = session.Run("MATCH (n:User) RETURN n.name as name");
-                foreach (var record in result)
-                {
-                    output = ($"{ record["name"].As<string>()}");
-                    ListOutput.Add(output);
-                }
-                return ListOutput;
-            }
-
+            return View();
         }
+
+        [HttpPost]
+        //public ActionResult UploadSong(string name, HttpPostedFile image, HttpPostedFile song )
+        //{
+        //  //  Song newSong = new Song();
+
+        //    newSong.Title = name;
+        //    //newSong.File = song;
+        //    //newSong.Image = image;
+        //    //newSong.SongFileName = song.FileName;
+        //    //newSong.ImageFileName = image.FileName;
+        //    //newSong.length = song.ContentLength;
+        //    //newSong.Owner.Name = User.Identity.Name;
+            
+        //    return View(newSong);
+
+        //}
+
+        public ActionResult Overview()
+        {
+            return View();
+        }
+
+
+
     }
 }
