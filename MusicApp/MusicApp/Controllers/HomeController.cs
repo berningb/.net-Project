@@ -27,6 +27,11 @@ namespace MusicApp.Controllers
             return View();
         }
 
+        public ActionResult ProfilePage()
+        {
+            return View();
+        }
+
 
         public List<string> NeoQuery()
         {

@@ -233,6 +233,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\musicComposition.png" />
     <Content Include="Images\musicNote.png" />
+    <Content Include="Images\profile.png" />
     <Content Include="Images\test.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -287,6 +288,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Wall.cshtml" />
     <Content Include="Views\Home\Playlist.cshtml" />
+    <Content Include="Views\Home\ProfilePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

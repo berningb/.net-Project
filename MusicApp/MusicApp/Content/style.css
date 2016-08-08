@@ -3,8 +3,19 @@
 
 #rectangle {
     margin-top: 15px;
-    width: 1130px;
+    width: 300px;
     height:100px;
     border:1px solid #7a7a52;
     border-radius: 10px;
+    
 }
+
+#profileRectangle {
+    margin-top: 15px;
+    width: 1000px;
+    height:110px;
+    border:1px solid #7a7a52;
+    border-radius: 10px;
+}
+
+
