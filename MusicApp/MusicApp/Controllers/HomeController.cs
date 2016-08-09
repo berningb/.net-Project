@@ -46,6 +46,11 @@ namespace MusicApp.Controllers
             return View();
         }
 
+        public ActionResult Tabs()
+        {
+            return View();
+        }
+
 
         public ActionResult Upload()
         {
