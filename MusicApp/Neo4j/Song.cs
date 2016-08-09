@@ -19,19 +19,6 @@ namespace Neo4j
         public string Title { get; set; }
         public double Length { get; set; }
 
-        //We need to use a constructor because we need to propery instantiate new model objects on Neo4j
-        public Song(Artist owner, HttpPostedFileBase file, HttpPostedFileBase image, string title, double length)
-        {
-            Owner = owner;
-            //Likees = new List<Artist>();
-            File = file;
-            Image = image;
-            Title = title;
-            Length = length;
-
-           // NeoMain.CreateSong(this);
-        }
-
         public Song(Artist owner, HttpPostedFileBase file, HttpPostedFileBase image, string title)
         {
             Owner = owner;
