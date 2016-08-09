@@ -11,13 +11,10 @@ namespace MusicApp.Controllers
 {
     public class HomeController : Controller
     {
-
         NeoMain neo = new NeoMain();
         public ActionResult Index()
         {
             //ViewBag.List = NeoQuery();
-
-
             return View();
         }
 
@@ -34,29 +31,20 @@ namespace MusicApp.Controllers
         public ActionResult Following()
         {
             return View();
-
-
-
-
-            
-
         }
         public ActionResult Overview()
         {
             return View();
         }
 
-        public ActionResult Tabs()
+        public ActionResult ProfilePage()
         {
             return View();
         }
-
-
         public ActionResult Upload()
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult UploadSong(string title)
         {
@@ -85,17 +73,12 @@ namespace MusicApp.Controllers
             Artist arty= neo.getArtist(web.HttpContext.Current.User.Identity.Name);
             Song song = new Song(arty, songFile, imageFile, title);
             neo.CreateSong(song, arty);
-
             return View();
 
         }
-
         public ActionResult Uploads()
         {
             return View();
         }
-        
-
-
     }
 }

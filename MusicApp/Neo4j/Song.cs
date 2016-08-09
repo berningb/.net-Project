@@ -27,7 +27,6 @@ namespace Neo4j
             Title = title;
             SongFileName = file.FileName;
             ImageFileName = image.FileName;
-
         }
         public void Like(Artist artist)
         {
