@@ -1,5 +1,22 @@
-﻿
+﻿@using Neo4j
+@model List<Song>
 
-    <div id="rectangle">
-        <img src="~/Images/musicComposition.png" class="img-rounded" alt="MusicNote">
-    </div>
+@*@{
+   
+   // var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+
+   // <img src = "@imgSrc" />*@
+
+@{ 
+    foreach (var item in Model)
+    {
+        var base64 = Convert.ToBase64String(item.image);
+        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        <img src=imgSrc/>
+        <h2> @item.Title</h2>
+        <p>@item.ImageFileName</p>
+        
+
+    }
+}
