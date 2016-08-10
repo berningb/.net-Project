@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.IO;
 
 namespace Neo4j
 {
@@ -12,10 +13,11 @@ namespace Neo4j
     {
         public Artist Owner { get; set; }
         public List<Artist> Likees { get; set; }
-        public HttpPostedFileBase File { get; set; }
-        public HttpPostedFileBase Image { get; set; }
+        public byte[] file { get; set; }
+        public byte[] image { get; set; }
         public string SongFileName { get; set; }
         public string ImageFileName { get; set; }
+        public string filename { get; set; }
         public string Title { get; set; }
         public double Length { get; set; }
 
@@ -24,8 +26,7 @@ namespace Neo4j
         {
             Owner = owner;
             Likees = new List<Artist>();
-            File = file;
-            Image = image;
+            
             SongFileName = songFileName;
             ImageFileName = imageFIleName;
             Title = title;
@@ -34,14 +35,16 @@ namespace Neo4j
            // NeoMain.CreateSong(this);
         }
 
-        public Song(Artist owner, HttpPostedFileBase file, HttpPostedFileBase image, string title)
+        public Song(Artist owner, byte[] image, string title, string filename)
         {
-            Owner = owner;
-            File = file;
-            Image = image;
+            
+            this.Owner = owner;
             Title = title;
-            SongFileName = file.FileName;
-            ImageFileName = image.FileName;
+            this.filename = filename;
+            this.ImageFileName = filename;
+           // this.SongFileName = filename;
+            this.image = image;
+            
 
         }
         public void Like(Artist artist)

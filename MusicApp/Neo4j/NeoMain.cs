@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Neo4j.Driver.V1;
+using System.IO;
+using web = System.Web;
+using System.Web.UI.WebControls;
 
 namespace Neo4j
 {
@@ -49,8 +52,8 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
             using (var session = driver.Session())
             {
-                session.Run("CREATE (a:Song {Image:" + "'" + song.File.FileName + "'" +"})"); //"}) /*SET a.Filename = " + song.ImageFileName + ", a.length" + song.Length);
-              //  session.Run("MATCH (b:Artist {name: " + song.Owner + "}), (c:Song {Title: " + song.Title + "}) CREATE (b)-[:OWN]->(c)");
+                session.Run("CREATE (a:Song {Title:" + "'" + song.Title + "'" + " }) SET a.ImageFileName = " + "'" + song.ImageFileName + "'" );//, a.SongFileName" + "'"+ song.SongFileName +"'");
+                session.Run("MATCH (b:Artist {name: " +"'"+ artist.Name +"'"+ "}), (c:Song {Title: "+"'" + song.Title + "'"+ "}) CREATE (b)-[:OWNS]->(c)");
             }
 
         }
@@ -62,14 +65,13 @@ namespace Neo4j
             using (var session = driver.Session())
             {
                
-             var output = session.Run("MATCH (b:Artist {name: " + "'" + name + "'" + "}) return b");
-
+             var output = session.Run("MATCH (b:Artist {name: " + "'" + name + "'" + "}) return b.name as name");
+                string artistName;
                 foreach (var item in output)
                 {
-                    string artistName = ($"{ item["name"].As<string>()}");
-                    string artistEmail = ($"{ item["Email"].As<string>()}");
-                     arty = new Artist(artistName, artistEmail);
-
+                    artistName = ($"{ item["name"].As<string>()}");
+                   // string artistEmail = ($"{ item["Email"].As<string>()}");
+                     arty = new Artist(artistName, artistName);
                 }
 
             }
@@ -92,6 +94,37 @@ namespace Neo4j
                 session.Run("MATCH(b:Artist {name: " + follower.Name + "}), (c:Artist {name: " + followee.Name + "}) CREATE (b)-[:FOLLOWS]->(c)");
             }
         }
+        public List<Song> getSongs(Artist artist, string path)
+        {
+            List<Song> songs = new List<Song>();
+            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
+            using (var session = driver.Session())
+            {
+                var output = session.Run("MATCH (a:Artist {name:" + "'" + artist.Name + "'" + "})-[:OWNS]->(b:Song) RETURN b.Title as Title, b.ImageFileName as ImageFileName");
+
+                foreach (var item in output)
+                {
+                    string songName = ($"{ item["Title"].As<string>()}");
+                  //  string SongFileName = ($"{ item["SongFileName"].As<string>()}");
+                    string ImageFileName = ($"{ item["ImageFileName"].As<string>()}");
+                    
+                   
+                    string [] filesEntries = Directory.GetFiles(path);
+                    foreach (var file in filesEntries)
+                    {
+                       string filename = Path.GetFileName(file);
+                        if (ImageFileName == filename )
+                        {
+                           
+                            Song song = new Song(artist, File.ReadAllBytes(file), songName, ImageFileName);
+                            songs.Add(song);
+                        }
+                    }
+                }
+            }
+            return songs;
+        }
+
         public List<Artist> getFollowers(Artist artist)
         {
             List<string> outputFollowers = new List<string>();
@@ -114,6 +147,7 @@ namespace Neo4j
                         {
                             Artist Finalartist = artistsList;
                             artists.Add(Finalartist);
+                            
                         }
                     }
                 }
