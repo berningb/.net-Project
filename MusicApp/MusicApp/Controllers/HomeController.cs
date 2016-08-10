@@ -112,5 +112,13 @@ namespace MusicApp.Controllers
            // ViewBag.Songs = neo.getSongs(arty);
             return View(neo.getSongs(arty, folder));
         }
+
+        public ActionResult SongPage()
+        {
+            return View();
+        }
+        
+
+
     }
 }
