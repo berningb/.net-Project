@@ -94,6 +94,11 @@ namespace MusicApp.Controllers
         {
             return View();
         }
+
+        public ActionResult SongPage()
+        {
+            return View();
+        }
         
 
 
