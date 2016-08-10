@@ -40,12 +40,14 @@ namespace MusicApp.Controllers
             return View();
         }
 
-
+        public ActionResult ProfilePage()
+        {
+            return View();
+        }
         public ActionResult Upload()
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult UploadSong(string Title)
         {
@@ -88,7 +90,6 @@ namespace MusicApp.Controllers
 
             Song song = new Song(arty, imageFileBytes, Title, filename );
             neo.CreateSong(song, arty);
-
             return View();
 
         }
@@ -103,8 +104,5 @@ namespace MusicApp.Controllers
            // ViewBag.Songs = neo.getSongs(arty);
             return View(neo.getSongs(arty, folder));
         }
-        
-
-
     }
 }
