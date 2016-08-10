@@ -108,7 +108,6 @@ namespace Neo4j
                 foreach (var item in output)
                 {
                     string songName = ($"{ item["Title"].As<string>()}");
-                  //  string SongFileName = ($"{ item["SongFileName"].As<string>()}");
                     string ImageFileName = ($"{ item["ImageFileName"].As<string>()}");
                     
                    
@@ -118,8 +117,8 @@ namespace Neo4j
                        string filename = Path.GetFileName(file);
                         if (ImageFileName == filename )
                         {
-                           
-                            Song song = new Song(artist, File.ReadAllBytes(file), songName, ImageFileName);
+                        
+                            Song song = new Song(artist, songName, filename);
                             songs.Add(song);
                         }
                     }

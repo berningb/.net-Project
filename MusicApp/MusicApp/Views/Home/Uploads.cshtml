@@ -11,9 +11,8 @@
 @{ 
     foreach (var item in Model)
     {
-        var base64 = Convert.ToBase64String(item.image);
-        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-        <img src=imgSrc/>
+       
+        <img src="~/Content/Images/@item.ImageFileName" alt="AltPic" height="50" width="50"/>
         <h2> @item.Title</h2>
         <p>@item.ImageFileName</p>
         
