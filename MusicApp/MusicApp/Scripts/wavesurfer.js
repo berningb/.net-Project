@@ -41,3 +41,12 @@ function rewind() {
 function fastForward() {
     wavesurfer.skipForward(wavesurfer.skipLength);
 }
+
+function togglePlay() {
+    wavesurfer.playPause();
+    if (document.getElementById("playPause").innerHTML == "Play") {
+        document.getElementById("playPause").innerHTML = "Pause";
+    } else {
+        document.getElementById("playPause").innerHTML = "Play";
+    }
+}
