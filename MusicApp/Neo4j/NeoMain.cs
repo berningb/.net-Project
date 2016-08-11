@@ -12,12 +12,12 @@ namespace Neo4j
 {
     public class NeoMain
     {
-        private string boltEndpoint = "bolt://localhost"; // "bolt://sb10.stations.graphenedb.com:24786";
-        private string[] authTokens = new string[] { "neo4j", "test" }; // { "neo4jdb", "Wdd9t4d4ccK72FeXIttm" };
+        private string[] boltEndpoint = new string[] { "bolt://localhost", "bolt://sb10.stations.graphenedb.com:24786", "bolt://neo-trial-lillie-sauer-orangered.azure.graphstory.com:7687" };
+        private string[,] authTokens = new string[,] { { "neo4j", "test" }, { "neo4jdb", "Wdd9t4d4ccK72FeXIttm" }, { "neo_trial_lillie_sauer_orangered", "fLYPzrTSQHda4CXtGcxG1ntvo4yh0jc0TO76mhnf" } };
 
         public List<string> NeoQuery()
         {
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                 List<string> ListOutput = new List<string>();
@@ -36,7 +36,7 @@ namespace Neo4j
 
         public void CreateArtist(Artist artist)
         {
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                 session.Run("CREATE (a:Artist {name:"+ "'"+ artist.Name + "'"+ "}) SET a.Email = " + "'"+ artist.Email +"'");
@@ -44,7 +44,7 @@ namespace Neo4j
         }
         public void CreatePlaylist(Playlist playlist, List<Song> songs)
         {
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
                 using(var session = driver.Session())
             {
                 session.Run("CREATE (a:Playlist {Title:" + playlist.Title + "} ");
@@ -52,7 +52,7 @@ namespace Neo4j
         }
         public void CreateSong(Song song, Artist artist)
         {
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                 session.Run("CREATE (a:Song {Title:" + "'" + song.Title + "'" + " }) SET a.ImageFileName = " + "'" + song.ImageFileName + "'" );//, a.SongFileName" + "'"+ song.SongFileName +"'");
@@ -64,7 +64,7 @@ namespace Neo4j
         {
 
             Artist arty = null;
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                
@@ -83,7 +83,7 @@ namespace Neo4j
             }
         public void AddFriend(Artist fromArtist, Artist toArtist)
         {
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
                 using(var session = driver.Session())
             {
                 session.Run("MATCH(b:Artist {name: " + fromArtist.Name + "}), (c:Artist {name: " + toArtist.Name + "}) CREATE (b)-[:FRIEND]->(c)");
@@ -91,7 +91,7 @@ namespace Neo4j
         }
         public void FollowArtist(Artist follower, Artist followee)
         {
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                 session.Run("MATCH(b:Artist {name: " + follower.Name + "}), (c:Artist {name: " + followee.Name + "}) CREATE (b)-[:FOLLOWS]->(c)");
@@ -100,7 +100,7 @@ namespace Neo4j
         public List<Song> getSongs(Artist artist, string path)
         {
             List<Song> songs = new List<Song>();
-            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
             using (var session = driver.Session())
             {
                 var output = session.Run("MATCH (a:Artist {name:" + "'" + artist.Name + "'" + "})-[:OWNS]->(b:Song) RETURN b.Title as Title, b.ImageFileName as ImageFileName");
@@ -132,7 +132,7 @@ namespace Neo4j
             List<string> outputFollowers = new List<string>();
             List<Artist> artists = new List<Artist>();
 
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                 var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})-[:FOLLOWING]-> (b:Artist) return b");
@@ -160,7 +160,7 @@ namespace Neo4j
         public List<Artist> getAllArtist()
         {
             List<Artist> artistList = new List<Artist>();
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                 var result = session.Run("MATCH (n:Artist) return n");
@@ -182,7 +182,7 @@ namespace Neo4j
             List<string> outputFollowers = new List<string>();
             List<Artist> artists = new List<Artist>();
 
-            using (var driver = GraphDatabase.Driver(boltEndpoint, AuthTokens.Basic(authTokens[0], authTokens[1])))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                 var result = session.Run("MATCH (a:Artist {name: " +"'"+artist.Name +"'" +"})-[:FRIENDS]-> (b:Artist) return b");
