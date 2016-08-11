@@ -50,3 +50,21 @@ function togglePlay() {
         document.getElementById("playPause").innerHTML = "Play";
     }
 }
+
+function speedUp() {
+    wavesurfer.audioRate += .25;
+    wavesurfer.setPlaybackRate(wavesurfer.audioRate);
+}
+
+function slowDown() {
+    wavesurfer.audioRate -= .25;
+    if (wavesurfer.audioRate <= 0) {
+        wavesurfer.audioRate = .25;
+    }
+    wavesurfer.setPlaybackRate(wavesurfer.audioRate);
+}
+
+function restart() {
+    wavesurfer.stop();
+    document.getElementById("playPause").innerHTML = "Play";
+}
