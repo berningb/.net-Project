@@ -33,3 +33,7 @@ function muteSound() {
 function volumeChanged() {
     wavesurfer.setVolume(document.getElementById("volumeSlider").value);
 }
+
+function rewind() {
+    wavesurfer.skipBackward(wavesurfer.skipLength);
+}
