@@ -20,3 +20,12 @@ window.onload = function () {
 
 
 }
+
+function muteSound() {
+    wavesurfer.toggleMute();
+    if (document.getElementById("muteUnmute").innerHTML == "Mute") {
+        document.getElementById("muteUnmute").innerHTML = "Unmute";
+    } else {
+        document.getElementById("muteUnmute").innerHTML = "Mute";
+    }
+}
