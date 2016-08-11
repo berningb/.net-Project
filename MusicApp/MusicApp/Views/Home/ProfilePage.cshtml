@@ -1,5 +1,4 @@
-﻿@using Neo4j
-@model Artist
+﻿@model Neo4j.Artist
 @{
     ViewBag.Title = "ProfilePage";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +11,7 @@
                 <img src="~/Images/profile.png" class="img-rounded" alt="profile">
             </div>
             <div class="col-sm-2">
-                <h3>Username</h3>
+                <h3>@Model.Name</h3>
             </div>
             <div class="col-sm-8">
 

@@ -39,11 +39,24 @@ namespace MusicApp.Controllers
             return View(MainArty);
         }
 
+        public ActionResult ProfilePage()
+        {
+            Artist arty = neo.getArtist(artistName);
+            return View("ProfilePage", arty);
+        }
         public ActionResult Upload()
         {
             return View();
         }
-
+        public ActionResult Search(string Input)
+        {
+            Artist arty = neo.getArtist(Input);
+            if(arty != null)
+            {
+                return View("ProfilePage", arty);
+            }
+            return View("Index");
+        }
         [HttpPost]
         public ActionResult UploadSong(string Title)
         {
