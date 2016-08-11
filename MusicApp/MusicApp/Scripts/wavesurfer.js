@@ -37,3 +37,7 @@ function volumeChanged() {
 function rewind() {
     wavesurfer.skipBackward(wavesurfer.skipLength);
 }
+
+function fastForward() {
+    wavesurfer.skipForward(wavesurfer.skipLength);
+}
