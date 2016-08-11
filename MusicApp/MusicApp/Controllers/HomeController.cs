@@ -25,29 +25,25 @@ namespace MusicApp.Controllers
             return View();
         }
 
-        public ActionResult Playlist()
-        {
-            return View();
-        }
-
-        public ActionResult Following()
-        {
-            return View();
-
-        }
-        public ActionResult Overview()
-        {
-            return View();
-        }
-
         public ActionResult ProfilePage()
         {
-            return View();
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
+            Artist arty = neo.getArtist(artistName);
+            List<Song> songs = neo.getSongs(arty, folder);
+            List<Artist> Friends = neo.getFriends(arty);
+            List<Artist> Following = neo.getFollowers(arty);
+
+            Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
+
+            // ViewBag.Songs = neo.getSongs(arty);
+            return View(MainArty);
         }
+
         public ActionResult Upload()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult UploadSong(string Title)
         {
@@ -78,44 +74,18 @@ namespace MusicApp.Controllers
             
             
             Artist arty = neo.getArtist(artistName);
-           
-    
-            
-            
-       
             Song song = null;
-          
             song  = new Song(arty, Title, fileName);
-               
-      
             neo.CreateSong(song, arty);
 
             return View();
 
-        }
-      
-       
-
-        public ActionResult Uploads()
-        {
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
-            Artist arty = neo.getArtist(artistName);
-            List<Song> songs = neo.getSongs(arty, folder);
-            List<Artist> Friends = neo.getFriends(arty);
-            List<Artist> Following = neo.getFollowers(arty);
-
-            Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
-           
-            // ViewBag.Songs = neo.getSongs(arty);
-            return View(MainArty);
         }
 
         public ActionResult SongPage()
         {
             return View();
         }
-        
-
 
     }
 }
