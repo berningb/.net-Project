@@ -100,7 +100,7 @@ namespace Neo4j
         public List<Song> getSongs(Artist artist, string path)
         {
             List<Song> songs = new List<Song>();
-            using (var driver = GraphDatabase.Driver("bolt://localhost", AuthTokens.Basic("neo4j", "test")))
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
             using (var session = driver.Session())
             {
                 var output = session.Run("MATCH (a:Artist {name:" + "'" + artist.Name + "'" + "})-[:OWNS]->(b:Song) RETURN b.Title as Title, b.ImageFileName as ImageFileName");
