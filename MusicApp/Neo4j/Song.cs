@@ -46,6 +46,7 @@ namespace Neo4j
            // this.SongFileName = filename;
             this.image = image;
             
+
         }
         public Song(Artist owner, string title, string filename)
         {
