@@ -78,15 +78,14 @@ namespace MusicApp.Controllers
             
             
             Artist arty = neo.getArtist(artistName);
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
-            string[] filesEntries = Directory.GetFiles(folder);
-
-            string filename = null;
+           
+    
+            
             
        
             Song song = null;
           
-              song  = new Song(arty, Title, fileName);
+            song  = new Song(arty, Title, fileName);
                
       
             neo.CreateSong(song, arty);
@@ -102,8 +101,13 @@ namespace MusicApp.Controllers
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             Artist arty = neo.getArtist(artistName);
             List<Song> songs = neo.getSongs(arty, folder);
-           // ViewBag.Songs = neo.getSongs(arty);
-            return View(neo.getSongs(arty, folder));
+            List<Artist> Friends = neo.getFriends(arty);
+            List<Artist> Following = neo.getFollowers(arty);
+
+            Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
+           
+            // ViewBag.Songs = neo.getSongs(arty);
+            return View(MainArty);
         }
 
         public ActionResult SongPage()

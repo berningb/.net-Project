@@ -32,11 +32,15 @@ namespace Neo4j
 
             //NeoMain.CreateArtist(this);
         }
-        public Artist(string name, string email, List<Song> songs)
+        public Artist(string name, string email, List<Song> songs, List<Artist> Friends, List<Artist> Following)
         {
             Name = name;
             Email = email;
             Songs = songs;
+           this.Friends = Friends;
+            this.Following = Following;
+          
+
         }
     }
 }

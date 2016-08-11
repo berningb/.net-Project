@@ -50,7 +50,6 @@ namespace Neo4j
         public Song(Artist owner, string title, string filename)
         {
             Owner = owner;
-            
             Title = title;
             ImageFileName = filename;
         }
