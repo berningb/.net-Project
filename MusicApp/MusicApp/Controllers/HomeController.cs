@@ -83,20 +83,13 @@ namespace MusicApp.Controllers
 
             string filename = null;
             
-            foreach (var item in filesEntries)
-            {
-             
-                    filename = Path.GetFileName(item);
-                
-              
-
-            
-            }
-            if (filename == fileName)
-            {
-                Song song = new Song(arty, Title, filename);
-                neo.CreateSong(song, arty);
-            }
+       
+            Song song = null;
+          
+              song  = new Song(arty, Title, fileName);
+               
+      
+            neo.CreateSong(song, arty);
 
             return View();
 
