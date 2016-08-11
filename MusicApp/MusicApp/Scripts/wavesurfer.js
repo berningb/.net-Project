@@ -29,3 +29,7 @@ function muteSound() {
         document.getElementById("muteUnmute").innerHTML = "Mute";
     }
 }
+
+function volumeChanged() {
+    wavesurfer.setVolume(document.getElementById("volumeSlider").value);
+}
