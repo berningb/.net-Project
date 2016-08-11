@@ -32,10 +32,10 @@
 
     <div class="tab-content">
         <div id="uploads" class="tab-pane fade in active">
-            
+            @Html.Partial("Uploads", Model)
         </div>
         <div id="following" class="tab-pane fade">
-           @Html.Partial("Following")
+           @Html.Partial("Following", Model)
         </div>
         <div id="likes" class="tab-pane fade">
             @Html.Partial("Likes")

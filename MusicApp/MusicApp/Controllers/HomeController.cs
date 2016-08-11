@@ -25,19 +25,18 @@ namespace MusicApp.Controllers
             return View();
         }
 
-        public ActionResult Playlist()
+        public ActionResult ProfilePage()
         {
-            return View();
-        }
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
+            Artist arty = neo.getArtist(artistName);
+            List<Song> songs = neo.getSongs(arty, folder);
+            List<Artist> Friends = neo.getFriends(arty);
+            List<Artist> Following = neo.getFollowers(arty);
 
-        public ActionResult Following()
-        {
-            return View();
+            Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
 
-        }
-        public ActionResult Overview()
-        {
-            return View();
+            // ViewBag.Songs = neo.getSongs(arty);
+            return View(MainArty);
         }
 
         public ActionResult ProfilePage()
@@ -88,40 +87,18 @@ namespace MusicApp.Controllers
             
             
             Artist arty = neo.getArtist(artistName);
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
-            string[] filesEntries = Directory.GetFiles(folder);
-
-            string filename = null;
-            
-       
             Song song = null;
-          
-              song  = new Song(arty, Title, fileName);
-               
-      
+            song  = new Song(arty, Title, fileName);
             neo.CreateSong(song, arty);
 
             return View();
 
-        }
-      
-       
-
-        public ActionResult Uploads()
-        {
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
-            Artist arty = neo.getArtist(artistName);
-            List<Song> songs = neo.getSongs(arty, folder);
-           // ViewBag.Songs = neo.getSongs(arty);
-            return View(neo.getSongs(arty, folder));
         }
 
         public ActionResult SongPage()
         {
             return View();
         }
-        
-
 
     }
 }
