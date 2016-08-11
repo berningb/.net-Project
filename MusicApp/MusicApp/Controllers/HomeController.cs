@@ -39,11 +39,7 @@ namespace MusicApp.Controllers
             return View(MainArty);
         }
 
-        public ActionResult ProfilePage()
-        {
-            Artist arty = neo.getArtist(artistName);
-            return View("ProfilePage", arty);
-        }
+     
         public ActionResult Upload()
         {
             return View();
