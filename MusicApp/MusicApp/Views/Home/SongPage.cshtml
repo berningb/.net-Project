@@ -3,7 +3,16 @@
     ViewBag.Title = "SongPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>SongPage</h2>
+<div id="test"></div>
 <div id="waveform"></div>
+<div class="wrapper">
+    <div id="muteUnmute" onclick="muteSound()">Mute</div>
+    <div><input id="volumeSlider" type="range" min="0" max="1" value=".5" step=".01" onchange="volumeChanged(this.value)" /></div>
+    <div onclick="rewind()">Rewind</div>
+    <div onclick="fastForward()">Fast Forward</div>
+    <div id="playPause" onclick="togglePlay()">Pause</div>
+    <div onclick="speedUp()">Speed Up</div>
+    <div onclick="slowDown()">Slow Down</div>
+    <div onclick="restart()">Restart</div>
+</div>
 
