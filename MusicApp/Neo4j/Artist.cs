@@ -32,5 +32,11 @@ namespace Neo4j
 
             //NeoMain.CreateArtist(this);
         }
+        public Artist(string name, string email, List<Song> songs)
+        {
+            Name = name;
+            Email = email;
+            Songs = songs;
+        }
     }
 }

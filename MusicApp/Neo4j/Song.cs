@@ -20,6 +20,7 @@ namespace Neo4j
         public string filename { get; set; }
         public string Title { get; set; }
         public double Length { get; set; }
+        public string imageURL { get; set; }
 
         //We need to use a constructor because we need to propery instantiate new model objects on Neo4j
         public Song(Artist owner, HttpPostedFileBase file, HttpPostedFileBase image, string songFileName, string imageFIleName, string title, double length)
@@ -45,6 +46,13 @@ namespace Neo4j
            // this.SongFileName = filename;
             this.image = image;
             
+        }
+        public Song(Artist owner, string title, string filename)
+        {
+            Owner = owner;
+            
+            Title = title;
+            ImageFileName = filename;
         }
         public void Like(Artist artist)
         {

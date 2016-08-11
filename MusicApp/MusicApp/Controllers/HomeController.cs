@@ -54,6 +54,7 @@ namespace MusicApp.Controllers
           
             web.HttpPostedFileBase songFile = null;
             web.HttpPostedFileBase imageFile = null;
+            string fileName = null;
             if (Request.Files.Count > 0)
             {
                  songFile = Request.Files[0];
@@ -69,27 +70,34 @@ namespace MusicApp.Controllers
 
                 if (imageFile != null && imageFile.ContentLength > 0)
                 {
-                    var fileName = Path.GetFileName(imageFile.FileName);
-                    var path2 = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
+                     fileName = Path.GetFileName(imageFile.FileName);
+                    var path2 = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
                     imageFile.SaveAs(path2);
                 }
             }
             
             
             Artist arty = neo.getArtist(artistName);
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images"));
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             string[] filesEntries = Directory.GetFiles(folder);
 
-            byte[] imageFileBytes = null;
             string filename = null;
+            
             foreach (var item in filesEntries)
             {
-                filename = Path.GetFileName(item);
-                imageFileBytes = System.IO.File.ReadAllBytes(item);
+             
+                    filename = Path.GetFileName(item);
+                
+              
+
+            
+            }
+            if (filename == fileName)
+            {
+                Song song = new Song(arty, Title, filename);
+                neo.CreateSong(song, arty);
             }
 
-            Song song = new Song(arty, imageFileBytes, Title, filename );
-            neo.CreateSong(song, arty);
             return View();
 
         }
@@ -98,7 +106,7 @@ namespace MusicApp.Controllers
 
         public ActionResult Uploads()
         {
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images"));
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             Artist arty = neo.getArtist(artistName);
             List<Song> songs = neo.getSongs(arty, folder);
            // ViewBag.Songs = neo.getSongs(arty);
