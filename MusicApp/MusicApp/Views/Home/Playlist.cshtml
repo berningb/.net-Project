@@ -1,13 +1,15 @@
-﻿   
+﻿@using Neo4j
+@model List<Playlist>   
 <h2 class="page-header">Playlist</h2>
 
 
 <div class="row">
     @{
-        for (int i = 0; i < 4; i++)
+        foreach (Playlist plist in Model)
         {
             <div class="col-sm-3 keeper">
                 <div class="box">
+                    @plist.Title
                     <img class="img-circle img" src="~/Images/test.jpg" />
                 </div>
             </div>

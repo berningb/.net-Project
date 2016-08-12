@@ -1,9 +1,13 @@
-﻿@*@using Neo4j.Interfaces
-@model List<ILikeable>*@
+﻿@using Neo4j.Interfaces;
+@model List<ILikeable>
 
 
 
+@foreach (ILikeable likeable in Model)
+{
+    <div id="rectangle">
+        @likeable.Title
+        <img src="~/Images/musicComposition.png" class="img-rounded" alt="MusicNote">
+    </div>
+}
 
-<div id="rectangle">
-    <img src="~/Images/musicComposition.png" class="img-rounded" alt="MusicNote">
-</div>
