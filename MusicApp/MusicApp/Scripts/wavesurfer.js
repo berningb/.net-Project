@@ -2,12 +2,13 @@
 
 window.onload = function () {
     wavesurfer = WaveSurfer.create({
-        container: '#waveform',
-        waveColor: 'violet',
-        progressColor: 'purple',
+        container: '.waveform',
+        waveColor: 'black',
+        progressColor: 'white',
         height: 300,
-        barWidth: 1,
-        containerWidth: 1000
+        barWidth: 5,
+        hideScrollbar: true,
+        containerWidth: 200
     });
 
     wavesurfer.load('../Content/MP3/Weekend.mp3');

@@ -27,10 +27,11 @@
     border-radius: 10px;
 }
 
-#waveform {
+.waveform {
     border-style: solid;
-    border-width: 10px;
-    background-color: aqua;
+    border-width: 5px;
+    padding: 10px;
+    background-color: white;
 }
 
 .wrapper{
@@ -43,12 +44,6 @@
 .wrapper > div{
     padding: 15px;
     font-weight: 600;
-}
-
-#test {
-    background-color: red;
-    width: 10px;
-    height: 50px;
 }
 
 
