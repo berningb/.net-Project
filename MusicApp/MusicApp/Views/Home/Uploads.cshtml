@@ -1,5 +1,5 @@
 ﻿@using Neo4j
-@model Artist
+@model List<Song>
 
 @*@{
    
@@ -9,7 +9,7 @@
    // <img src = "@imgSrc" />*@
 
 @{
-    foreach (var item in Model.Songs)
+    foreach (var item in Model)
     {
         <div class="songDiv">
             <img src="~/Content/Images/@item.ImageFileName" alt="AltPic" height="50" width="50" />
