@@ -47,9 +47,11 @@ namespace MusicApp.Controllers
         public ActionResult Search(string Input)
         {
             Artist arty = neo.getArtist(Input);
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             if (arty != null)
             {
-                return View("ProfilePage", arty);
+                Artist finalArtist = new Artist(arty.Name, arty.Email, neo.getSongs(arty, folder), neo.getFriends(arty), neo.getFollowers(arty));
+                return View("ProfilePage", finalArtist);
             }
             return View("Index");
         }
