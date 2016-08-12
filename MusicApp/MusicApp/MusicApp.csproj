@@ -228,6 +228,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\logo1.png" />
     <Content Include="Images\test2.jpg" />
     <Content Include="Images\musicComposition.png" />
     <Content Include="Images\musicNote.png" />
