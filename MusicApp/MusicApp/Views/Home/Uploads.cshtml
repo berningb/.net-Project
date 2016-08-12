@@ -1,21 +1,16 @@
 ﻿@using Neo4j
 @model List<Song>
 
-@*@{
-   
-   // var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-        }
-
-   // <img src = "@imgSrc" />*@
 
 @{
     foreach (var item in Model)
     {
         <div class="songDiv">
             <img src="~/Content/Images/@item.ImageFileName" alt="AltPic" height="50" width="50" />
-            <h2> @item.Title</h2>
-
-            <div class="waveform"></div>
+            <h2 class="songName"> @item.Title</h2>
+            <span class="hidden" hidden>@item.SongFileName</span>
+            <span class="hiddenTitle" hidden>#@item.Title</span>
+            <div id="@item.Title"></div>
             <div class="wrapper">
                 <div class="muteUnmute" onclick="muteSound()">Mute</div>
                 <div><input class="volumeSlider" type="range" min="0" max="1" value=".5" step=".01" onchange="volumeChanged(this.value)" /></div>
@@ -27,7 +22,5 @@
                 <div onclick="restart()">Restart</div>
             </div>
         </div>
-
-
     }
 }

@@ -12,11 +12,11 @@ namespace MusicApp.Controllers
     public class HomeController : Controller
     {
         string artistName = web.HttpContext.Current.User.Identity.Name;
-      
+
         NeoMain neo = new NeoMain();
         public ActionResult Index()
         {
-    
+
             return View();
         }
 
@@ -38,56 +38,56 @@ namespace MusicApp.Controllers
             // ViewBag.Songs = neo.getSongs(arty);
             return View(MainArty);
         }
+
+
         public ActionResult Upload()
         {
             return View();
         }
         public ActionResult Search(string Input)
         {
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             Artist arty = neo.getArtist(Input);
-            if(arty != null)
+            if (arty != null)
             {
-                Artist finalArtist = new Artist(arty.Name, arty.Email, neo.getSongs(arty, folder), neo.getFriends(arty), neo.getFollowers(arty));
-                return View("ProfilePage", finalArtist);
+                return View("ProfilePage", arty);
             }
             return View("Index");
         }
         [HttpPost]
         public ActionResult UploadSong(string Title)
         {
-          
+
             web.HttpPostedFileBase songFile = null;
             web.HttpPostedFileBase imageFile = null;
             string fileName = null;
+            string fileName2 = null;
             if (Request.Files.Count > 0)
             {
-                 songFile = Request.Files[0];
-
-                //if (songFile != null && songFile.ContentLength > 0)
-                //{
-                //    var fileName = Path.GetFileName(songFile.FileName);
-                //    var path = Path.Combine(Server.MapPath("~/App_Data/Songs"), fileName);
-                //    songFile.SaveAs(path);
-                //}
-
-                imageFile = Request.Files[1];
+                imageFile = Request.Files[0];
+                songFile = Request.Files[1];
 
                 if (imageFile != null && imageFile.ContentLength > 0)
                 {
-                     fileName = Path.GetFileName(imageFile.FileName);
-                    var path2 = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
-                    imageFile.SaveAs(path2);
+                    fileName = Path.GetFileName(imageFile.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
+                    imageFile.SaveAs(path);
+                }
+
+                if (songFile != null && songFile.ContentLength > 0)
+                {
+                    fileName2 = Path.GetFileName(songFile.FileName);
+                    var path2 = Path.Combine(Server.MapPath("~/Content/MP3/"), fileName2);
+                    songFile.SaveAs(path2);
                 }
             }
-            
-            
+
+
             Artist arty = neo.getArtist(artistName);
             Song song = null;
-            song  = new Song(arty, Title, fileName);
+            song = new Song(arty, Title, fileName, fileName2);
             neo.CreateSong(song, arty);
 
-            return View();
+            return RedirectToAction("ProfilePage");
 
         }
 

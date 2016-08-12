@@ -36,23 +36,12 @@ namespace Neo4j
            // NeoMain.CreateSong(this);
         }
 
-        public Song(Artist owner, byte[] image, string title, string filename)
-        {
-            
-            this.Owner = owner;
-            Title = title;
-            this.filename = filename;
-            this.ImageFileName = filename;
-           // this.SongFileName = filename;
-            this.image = image;
-            
-
-        }
-        public Song(Artist owner, string title, string filename )
+        public Song(Artist owner, string title, string filename, string filename2 )
         {
             Owner = owner;
             Title = title;
             ImageFileName = filename;
+            SongFileName = filename2;
         }
         public void Like(Artist artist)
         {

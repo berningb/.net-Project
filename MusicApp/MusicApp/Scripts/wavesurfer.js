@@ -1,29 +1,55 @@
-﻿var wavesurfer;
+﻿var songPaths = new Array();
+var songNames = new Array();
+var names = [];
+
+var list = document.getElementsByClassName("hiddenTitle");
+
+var i;
+
 
 window.onload = function () {
-    wavesurfer = WaveSurfer.create({
-        container: '.waveform',
-        waveColor: 'black',
-        progressColor: 'white',
-        height: 300,
-        barWidth: 5,
-        hideScrollbar: true,
-        containerWidth: 200
+
+    for (i = 0; i < list.length; i++) {
+        songPaths[i] = (document.getElementsByClassName('hidden')[i].innerHTML);
+        songNames[i] = (document.getElementsByClassName('hiddenTitle')[i].innerHTML);
+    }
+
+    for (var p = 0; p < songNames.length; p++) {
+        console.log(songNames[p]);
+        names[p] = WaveSurfer.create({
+            container: songNames[p],
+            waveColor: 'black',
+            progressColor: 'white',
+            height: 300,
+            barWidth: 5,
+            hideScrollbar: true,
+            containerWidth: 200
+        });
+
+        names[p].load('../Content/MP3/' + songPaths[p]);
+
+        
+    }
+
+    names[0].on('ready', function () {
+        names[0].play();
+        names[0].skipLength = 10;
+        names[0].audioRate = 1;
     });
 
-    wavesurfer.load('../Content/MP3/Weekend.mp3');
+    //names[1].on('ready', function () {
+    //    names[1].play();
+    //    names[1].skipLength = 10;
+    //    names[1].audioRate = 1;
+    //});
 
-    wavesurfer.on('ready', function () {
-        wavesurfer.play();
-        wavesurfer.skipLength = 10;
-        wavesurfer.audioRate = 1;
-    });
-
-
+    
+  
 }
 
+
 function muteSound() {
-    wavesurfer.toggleMute();
+    names[0].toggleMute();
     if (document.getElementById("muteUnmute").innerHTML == "Mute") {
         document.getElementById("muteUnmute").innerHTML = "Unmute";
     } else {
@@ -32,20 +58,21 @@ function muteSound() {
 }
 
 function volumeChanged() {
-    wavesurfer.setVolume(document.getElementById("volumeSlider").value);
+    names[0].setVolume(document.getElementById("volumeSlider").value);
 }
 
 function rewind() {
-    wavesurfer.skipBackward(wavesurfer.skipLength);
+    names[0].skipBackward(names[0].skipLength);
 }
 
 function fastForward() {
-    wavesurfer.skipForward(wavesurfer.skipLength);
+    names[0].skipForward(names[0].skipLength);
 }
 
 function togglePlay() {
-    wavesurfer.playPause();
+    names[0].playPause();
     if (document.getElementById("playPause").innerHTML == "Play") {
+
         document.getElementById("playPause").innerHTML = "Pause";
     } else {
         document.getElementById("playPause").innerHTML = "Play";
@@ -53,19 +80,19 @@ function togglePlay() {
 }
 
 function speedUp() {
-    wavesurfer.audioRate += .25;
-    wavesurfer.setPlaybackRate(wavesurfer.audioRate);
+    names[0].audioRate += .25;
+    names[0].setPlaybackRate(names[0].audioRate);
 }
 
 function slowDown() {
-    wavesurfer.audioRate -= .25;
-    if (wavesurfer.audioRate <= 0) {
-        wavesurfer.audioRate = .25;
+    names[0].audioRate -= .25;
+    if (names[0].audioRate <= 0) {
+        names[0].audioRate = .25;
     }
-    wavesurfer.setPlaybackRate(wavesurfer.audioRate);
+    names[0].setPlaybackRate(names[0].audioRate);
 }
-
-function restart() {
-    wavesurfer.stop();
+    
+function restart(a) {
+    names[0].stop();
     document.getElementById("playPause").innerHTML = "Play";
 }
