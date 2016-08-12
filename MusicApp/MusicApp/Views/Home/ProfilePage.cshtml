@@ -36,16 +36,16 @@
             @Html.Partial("Uploads", Model)
         </div>
         <div id="following" class="tab-pane fade">
-           @Html.Partial("Following", Model)
+           @Html.Partial("Following", Model.Following)
         </div>
         <div id="likes" class="tab-pane fade">
-            @Html.Partial("Likes")
+            @Html.Partial("Likes", Model.Likes)
         </div>
         <div id="playlist" class="tab-pane fade">
-            @Html.Partial("Playlist")
+            @Html.Partial("Playlist", Model.Playlists)
         </div>
         <div id="overview" class="tab-pane fade">
-            @Html.Partial("Overview")
+            @Html.Partial("Overview", Model)
         </div>
     </div>
 </div>
