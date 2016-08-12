@@ -55,7 +55,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
-                session.Run("CREATE (a:Song {Title:" + "'" + song.Title + "'" + " }) SET a.ImageFileName = " + "'" + song.ImageFileName + "'" );//, a.SongFileName" + "'"+ song.SongFileName +"'");
+                session.Run("CREATE (a:Song {Title:" + "'" + song.Title + "'" + " }) SET a.ImageFileName = " + "'" + song.ImageFileName + "'" + ", a.SongFileName = " + "'" + song.SongFileName + "'" );
                 session.Run("MATCH (b:Artist {name: " +"'"+ artist.Name +"'"+ "}), (c:Song {Title: "+"'" + song.Title + "'"+ "}) CREATE (b)-[:OWNS]->(c)");
             }
 
@@ -103,25 +103,18 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
             using (var session = driver.Session())
             {
-                var output = session.Run("MATCH (a:Artist {name:" + "'" + artist.Name + "'" + "})-[:OWNS]->(b:Song) RETURN b.Title as Title, b.ImageFileName as ImageFileName");
+                var output = session.Run("MATCH (a:Artist {name:" + "'" + artist.Name + "'" + "})-[:OWNS]->(b:Song) RETURN b.Title as Title, b.ImageFileName as ImageFileName, b.SongFileName as SongFileName");
 
                 foreach (var item in output)
                 {
                     string songName = ($"{ item["Title"].As<string>()}");
                     string ImageFileName = ($"{ item["ImageFileName"].As<string>()}");
-                    
-                   
-                    string [] filesEntries = Directory.GetFiles(path);
-                    foreach (var file in filesEntries)
-                    {
-                       string filename = Path.GetFileName(file);
-                        if (ImageFileName == filename )
-                        {
+                    string SongFileName = ($"{ item["SongFileName"].As<string>()}");
                         
-                            Song song = new Song(artist, songName, filename);
-                            songs.Add(song);
-                        }
-                    }
+                    Song song = new Song(artist, songName, ImageFileName, SongFileName);
+                    songs.Add(song);
+                        
+                    
                 }
             }
             return songs;

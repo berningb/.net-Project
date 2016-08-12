@@ -1,25 +1,44 @@
-﻿var wavesurfer;
+﻿var songPaths = new Array();
+var songNames = new Array();
+var names = [];
+
+var list = document.getElementsByClassName("hiddenTitle");
+
+var i;
+
 
 window.onload = function () {
-    wavesurfer = WaveSurfer.create({
-        container: '.waveform',
-        waveColor: 'black',
-        progressColor: 'white',
-        height: 300,
-        barWidth: 5,
-        hideScrollbar: true,
-        containerWidth: 200
-    });
 
-    wavesurfer.load('../Content/MP3/Weekend.mp3');
+    for (i = 0; i < x.length; i++) {
+        songPaths[i] = (document.getElementsByClassName('hidden')[i].innerHTML);
+        songNames[i] = (document.getElementsByClassName('hiddenTitle')[i].innerHTML);
+    }
 
-    wavesurfer.on('ready', function () {
-        wavesurfer.play();
-        wavesurfer.skipLength = 10;
-        wavesurfer.audioRate = 1;
-    });
+    for (var p = 0; p < songNames.length; p++) {
+        console.log(songNames[p]);
+        names[p] = WaveSurfer.create({
+            container: songNames[p],
+            waveColor: 'black',
+            progressColor: 'white',
+            height: 300,
+            barWidth: 5,
+            hideScrollbar: true,
+            containerWidth: 200
+        });
 
+        names[p].load('../Content/MP3/' + songPaths[p]);
 
+        
+    }
+
+    for (var i = 0; i < 7; i++) {
+        names[i].on('ready', function () {
+            names[i].play();
+            names[i].skipLength = 10;
+            names[i].audioRate = 1;
+        });
+    }
+  
 }
 
 function muteSound() {
@@ -46,6 +65,7 @@ function fastForward() {
 function togglePlay() {
     wavesurfer.playPause();
     if (document.getElementById("playPause").innerHTML == "Play") {
+
         document.getElementById("playPause").innerHTML = "Pause";
     } else {
         document.getElementById("playPause").innerHTML = "Play";
@@ -64,8 +84,9 @@ function slowDown() {
     }
     wavesurfer.setPlaybackRate(wavesurfer.audioRate);
 }
-
-function restart() {
+    
+function restart(a) {
+    console.log(a);
     wavesurfer.stop();
     document.getElementById("playPause").innerHTML = "Play";
 }
