@@ -13,7 +13,7 @@ window.onload = function () {
         songPaths[i] = (document.getElementsByClassName('hidden')[i].innerHTML);
         songNames[i] = (document.getElementsByClassName('hiddenTitle')[i].innerHTML);
     }
-
+    
     for (var p = 0; p < songNames.length; p++) {
         console.log(songNames[p]);
         names[p] = WaveSurfer.create({
