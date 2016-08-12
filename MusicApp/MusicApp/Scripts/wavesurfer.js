@@ -18,7 +18,6 @@ window.onload = function () {
         wavesurfer.audioRate = 1;
     });
 
-
 }
 
 function muteSound() {
@@ -68,3 +67,4 @@ function restart() {
     wavesurfer.stop();
     document.getElementById("playPause").innerHTML = "Play";
 }
+
