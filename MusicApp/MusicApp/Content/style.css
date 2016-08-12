@@ -1,6 +1,11 @@
 ﻿body {
 }
 
+#navbar_logo{
+    width: 80px;
+    padding: 15px;
+}
+
 #rectangle {
     margin-top: 15px;
     width: 300px;
@@ -27,10 +32,11 @@
     border-radius: 10px;
 }
 
-#waveform {
+.waveform {
     border-style: solid;
-    border-width: 10px;
-    background-color: aqua;
+    border-width: 5px;
+    padding: 10px;
+    background-color: white;
 }
 
 .wrapper{

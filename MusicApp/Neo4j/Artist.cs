@@ -37,7 +37,10 @@ namespace Neo4j
             Name = name;
             Email = email;
             Songs = songs;
-           this.Friends = Friends;
+            Likes = new List<ILikeable>();
+            Albums = new List<Album>();
+            Playlists = new List<Playlist>();
+            this.Friends = Friends;
             this.Following = Following;
           
 
