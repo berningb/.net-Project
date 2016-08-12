@@ -38,22 +38,18 @@ namespace MusicApp.Controllers
             // ViewBag.Songs = neo.getSongs(arty);
             return View(MainArty);
         }
-
-        public ActionResult ProfilePage()
-        {
-            Artist arty = neo.getArtist(artistName);
-            return View("ProfilePage", arty);
-        }
         public ActionResult Upload()
         {
             return View();
         }
         public ActionResult Search(string Input)
         {
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             Artist arty = neo.getArtist(Input);
             if(arty != null)
             {
-                return View("ProfilePage", arty);
+                Artist finalArtist = new Artist(arty.Name, arty.Email, neo.getSongs(arty, folder), neo.getFriends(arty), neo.getFollowers(arty));
+                return View("ProfilePage", finalArtist);
             }
             return View("Index");
         }
