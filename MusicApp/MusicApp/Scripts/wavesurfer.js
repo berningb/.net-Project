@@ -96,3 +96,4 @@ function restart(a) {
     names[0].stop();
     document.getElementById("playPause").innerHTML = "Play";
 }
+
