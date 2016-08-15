@@ -219,6 +219,7 @@ namespace MusicApp.Controllers
         {
             return View();
         }
+        
 
         //
         // POST: /Manage/ChangePassword
@@ -243,6 +244,7 @@ namespace MusicApp.Controllers
             AddErrors(result);
             return View(model);
         }
+
 
         //
         // GET: /Manage/SetPassword

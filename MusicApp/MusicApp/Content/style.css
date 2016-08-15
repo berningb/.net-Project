@@ -1,4 +1,9 @@
 ﻿body {
+
+}
+
+::-webkit-scrollbar { 
+    display: none; 
 }
 
 #navbar_logo{
@@ -23,13 +28,8 @@
     margin: auto;
 }*/
 
-
-#profileRectangle {
-    margin-top: 15px;
-    width: 1000px;
-    height:110px;
-    border:1px solid #7a7a52;
-    border-radius: 10px;
+.profileBox{
+    height: 600px;
 }
 
 .waveform {

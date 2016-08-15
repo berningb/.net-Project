@@ -31,11 +31,11 @@ window.onload = function () {
         
     }
 
-    names[0].on('ready', function () {
-        names[0].play();
-        names[0].skipLength = 10;
-        names[0].audioRate = 1;
-    });
+    //names[0].on('ready', function () {
+    //    names[0].play();
+    //    names[0].skipLength = 10;
+    //    names[0].audioRate = 1;
+    //});
 
     //names[1].on('ready', function () {
     //    names[1].play();

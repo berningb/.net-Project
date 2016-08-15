@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Neo4j.Driver.V1;
 using System.IO;
 using Neo4j;
+using MusicApp.Common;
 
 namespace MusicApp.Controllers
 {
@@ -16,7 +17,6 @@ namespace MusicApp.Controllers
         NeoMain neo = new NeoMain();
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -82,21 +82,17 @@ namespace MusicApp.Controllers
                     songFile.SaveAs(path2);
                 }
             }
-
-
             Artist arty = neo.getArtist(artistName);
             Song song = null;
             song = new Song(arty, Title, fileName, fileName2);
             neo.CreateSong(song, arty);
 
             return RedirectToAction("ProfilePage");
-
         }
 
         public ActionResult SongPage()
         {
             return View();
         }
-
     }
 }

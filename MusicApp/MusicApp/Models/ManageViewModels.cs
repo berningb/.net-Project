@@ -58,6 +58,25 @@ namespace MusicApp.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeUsernameViewModel
+    {
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Current Username")]
+        public string OldUsername { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Text)]
+        [Display(Name = "New Username")]
+        public string NewUsername { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Confirm new Username")]
+        [Compare("NewUsername", ErrorMessage = "The new Username and confirmation Username do not match.")]
+        public string ConfirmUsername { get; set; }
+    }
+
     public class AddPhoneNumberViewModel
     {
         [Required]
