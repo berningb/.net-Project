@@ -86,7 +86,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
                 using(var session = driver.Session())
             {
-                session.Run("MATCH(b:Artist {name: " + fromArtist.Name + "}), (c:Artist {name: " + toArtist.Name + "}) CREATE (b)-[:FRIEND]->(c)");
+                session.Run("MATCH(b:Artist {name: " +"'" + fromArtist.Name + "'" + "}), (c:Artist {name: " +"'" + toArtist.Name + "'"+ "}) CREATE (b)-[:FRIEND]->(c)");
             }
         }
         public void FollowArtist(Artist follower, Artist followee)
@@ -94,7 +94,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
-                session.Run("MATCH(b:Artist {name: " + follower.Name + "}), (c:Artist {name: " + followee.Name + "}) CREATE (b)-[:FOLLOWING]->(c)");
+                session.Run("MATCH(b:Artist {name: " +"'" + follower.Name +"'"+ "}), (c:Artist {name: " +"'"+ followee.Name +"'" + "}) CREATE (b)-[:FOLLOWING]->(c)");
             }
         }
         public List<Song> getSongs(Artist artist, string path)
