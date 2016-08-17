@@ -1,0 +1,23 @@
+﻿
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Profile</h2>
+<br />
+@using (Html.BeginForm("EditProfile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <label>
+        <span>Edit Profile Name: </span>
+        <input id="Title" type="text" name="Title" placeholder="Profile Name" required />
+    </label>
+    <br />
+    <span>Edit Profile Image: </span>
+    <input type="file" name="profileImage" />
+    <br />
+    <input type="submit" name="Submit" id="Submit" value="Finish" />
+}
+
