@@ -38,6 +38,10 @@ namespace MusicApp.Controllers
             // ViewBag.Songs = neo.getSongs(arty);
             return View(MainArty);
         }
+        //public JsonResult returnArtist()
+        //{
+        //    return Json(neo.getArtist())
+        //}
 
 
         public ActionResult Upload()
