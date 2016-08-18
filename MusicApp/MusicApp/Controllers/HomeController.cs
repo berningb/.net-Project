@@ -29,6 +29,10 @@ namespace MusicApp.Controllers
         {
             return View();
         }
+        public ActionResult Upload()
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult EditProfile()
