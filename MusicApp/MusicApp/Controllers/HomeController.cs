@@ -7,12 +7,17 @@ using Neo4j.Driver.V1;
 using System.IO;
 using Neo4j;
 using MusicApp.Common;
+using Microsoft.Azure;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace MusicApp.Controllers
 {
     public class HomeController : Controller
     {
         string artistName = web.HttpContext.Current.User.Identity.Name;
+        CloudStorageAccount blobAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("BlobConnectionString"));
+        
 
         NeoMain neo = new NeoMain();
         public ActionResult Index()
@@ -27,9 +32,22 @@ namespace MusicApp.Controllers
 
         public ActionResult ProfilePage()
         {
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
+
+            CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("container");
+            CloudBlockBlob blockBlob;
+
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
             Artist arty = neo.getArtist(artistName);
             List<Song> songs = neo.getSongs(arty, folder);
+            foreach(Song s in songs)
+            {
+                blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
+                using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
+                {
+                    blockBlob.DownloadToStream(fileStream);
+                }
+            }
             List<Artist> Friends = neo.getFriends(arty);
             List<Artist> Following = neo.getFollowers(arty);
 
@@ -65,30 +83,42 @@ namespace MusicApp.Controllers
 
             web.HttpPostedFileBase songFile = null;
             web.HttpPostedFileBase imageFile = null;
-            string fileName = null;
-            string fileName2 = null;
+            //string imageFileName = null;
+            //string songFileName = null;
+            CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("container");
+
             if (Request.Files.Count > 0)
             {
                 imageFile = Request.Files[0];
                 songFile = Request.Files[1];
-
+                
                 if (imageFile != null && imageFile.ContentLength > 0)
                 {
-                    fileName = Path.GetFileName(imageFile.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
-                    imageFile.SaveAs(path);
+                    //imageFileName = Path.GetFileName(imageFile.FileName);
+                    //var path = Path.Combine(Server.MapPath("~/Content/Images/"), imageFileName);
+                    //imageFile.SaveAs(path);
+                    CloudBlockBlob blockBlob = container.GetBlockBlobReference(Title + "_img.jpg");
+                    using (var fileStream = imageFile.InputStream)
+                    {
+                        blockBlob.UploadFromStream(fileStream);
+                    }
                 }
 
                 if (songFile != null && songFile.ContentLength > 0)
                 {
-                    fileName2 = Path.GetFileName(songFile.FileName);
-                    var path2 = Path.Combine(Server.MapPath("~/Content/MP3/"), fileName2);
-                    songFile.SaveAs(path2);
+                    //songFileName = Path.GetFileName(songFile.FileName);
+                    //var path2 = Path.Combine(Server.MapPath("~/Content/MP3/"), songFileName);
+                    //songFile.SaveAs(path2);
+                    CloudBlockBlob blockBlob = container.GetBlockBlobReference(Title + "_song.mp3");
+                    using (var fileStream = songFile.InputStream)
+                    {
+                        blockBlob.UploadFromStream(fileStream);
+                    }
                 }
             }
             Artist arty = neo.getArtist(artistName);
-            Song song = null;
-            song = new Song(arty, Title, fileName, fileName2);
+            Song song = new Song(arty, Title);//, imageFileName, songFileName);
             neo.CreateSong(song, arty);
 
             return RedirectToAction("ProfilePage");
