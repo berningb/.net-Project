@@ -25,6 +25,7 @@ namespace MusicApp.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult EditProfile()
         {
             return View();
@@ -64,19 +65,32 @@ namespace MusicApp.Controllers
             List<Artist> Following = neo.getFollowers(arty);
 
             Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
+            MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
             // ViewBag.Songs = neo.getSongs(arty);
             return View(MainArty);
         }
-        //public JsonResult returnArtist()
-        //{
-        //    return Json(neo.getArtist())
-        //}
 
-
-        public ActionResult Upload()
+        [HttpPost]
+        public ActionResult EditProfile(string Title)
         {
-            return View();
+            web.HttpPostedFileBase imageFile = null;
+            string fileName = null;
+            if(Request.Files.Count > 0)
+            {
+                imageFile = Request.Files[0];
+
+                if(imageFile != null && imageFile.ContentLength > 0)
+                {
+                    fileName = Path.GetFileName(imageFile.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
+                    imageFile.SaveAs(path);
+                }
+            }
+            Artist artist = neo.getArtist(artistName);
+            neo.AddProfilePicture(artist);
+
+            return RedirectToAction("ProfilePage");
         }
         public ActionResult Search(string Input)
         {
@@ -116,7 +130,8 @@ namespace MusicApp.Controllers
                     songFile.SaveAs(path2);
                 }
             }
-            Artist arty = neo.getArtist(artistName);
+
+            Artist arty = neo.getArtist(artistName); 
             Song song = null;
             song = new Song(arty, Title, fileName, fileName2);
             neo.CreateSong(song, arty);
