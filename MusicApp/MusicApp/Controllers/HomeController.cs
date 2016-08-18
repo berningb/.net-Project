@@ -25,6 +25,11 @@ namespace MusicApp.Controllers
             return View();
         }
 
+        public ActionResult EditProfile()
+        {
+            return View();
+        }
+
         public ActionResult ProfilePage()
         {
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
