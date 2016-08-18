@@ -167,10 +167,10 @@ namespace Neo4j
                 foreach (var item in output)
                 {
                     string songName = ($"{ item["Title"].As<string>()}");
-                    string ImageFileName = ($"{ item["ImageFileName"].As<string>()}");
-                    string SongFileName = ($"{ item["SongFileName"].As<string>()}");
-                        
-                    Song song = new Song(artist, songName, ImageFileName, SongFileName);
+                    //string ImageFileName = ($"{ item["ImageFileName"].As<string>()}");
+                    //string SongFileName = ($"{ item["SongFileName"].As<string>()}");
+
+                    Song song = new Song(artist, songName);//, ImageFileName, SongFileName);
                     songs.Add(song);              
                 }
             }
