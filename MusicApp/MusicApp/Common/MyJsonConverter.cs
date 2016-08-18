@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MusicApp.Common
 {
-    public class JsonConverter
+    public class MyJsonConverter
     {
         public static string Serialize(Artist arty)
         {
