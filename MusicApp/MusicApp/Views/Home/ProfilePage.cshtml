@@ -10,11 +10,31 @@
         <div class="col-sm-4">
             <img class="img-circle" src="~/Content/Images/@Model.ProfilePicture" alt="~/Images/profile.png" height="200" width="200">
           
-            <img class="img-circle" src="~/Images/@Model.ProfilePicture" alt="profile" height="200" width="200">
+            
         </div>
         <div class="col-sm-8">
             <h3>@Model.Name</h3>
             @Html.ActionLink("Edit Profile", "EditProfile", "Home")
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-4">
+
+            @{
+                if (Model.Name == ViewBag.username)
+                {
+                    <button style="visibility:hidden"></button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-user"></span> Follow
+                    </button>
+                }
+            }
+            
         </div>
     </div>
 </div>

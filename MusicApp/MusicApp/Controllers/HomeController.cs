@@ -55,7 +55,6 @@ namespace MusicApp.Controllers
             return RedirectToAction("ProfilePage");
         }
 
-
         public ActionResult ProfilePage()
         {
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
@@ -67,7 +66,7 @@ namespace MusicApp.Controllers
             Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
             MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
-            // ViewBag.Songs = neo.getSongs(arty);
+            ViewBag.username = artistName;
             return View(MainArty);
         }
 
