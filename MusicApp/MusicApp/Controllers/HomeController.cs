@@ -77,10 +77,13 @@ namespace MusicApp.Controllers
             List<Song> songs = neo.getSongs(arty, folder);
             foreach(Song s in songs)
             {
-                blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
-                using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
-                {
-                    blockBlob.DownloadToStream(fileStream);
+                if(!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
+                { 
+                    blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
+                    using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
+                    {
+                        blockBlob.DownloadToStream(fileStream);
+                    }
                 }
             }
             List<Artist> Friends = neo.getFriends(arty);
@@ -117,10 +120,25 @@ namespace MusicApp.Controllers
         public ActionResult Search(string Input)
         {
             Artist arty = neo.getArtist(Input);
-            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
+            CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("container");
+            CloudBlockBlob blockBlob;
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
             if (arty != null)
             {
-                Artist finalArtist = new Artist(arty.Name, arty.Email, neo.getSongs(arty, folder), neo.getFriends(arty), neo.getFollowers(arty));
+                List<Song> songs = neo.getSongs(arty, folder);
+                foreach (Song s in songs)
+                {
+                    if (!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
+                    {
+                        blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
+                        using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
+                        {
+                            blockBlob.DownloadToStream(fileStream);
+                        }
+                    }
+                }
+                Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getFollowers(arty));
                 return View("ProfilePage", finalArtist);
             }
             return View("Index");
