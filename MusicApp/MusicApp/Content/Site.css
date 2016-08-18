@@ -54,6 +54,28 @@ textarea {
     display: flex;
 }
 
+#wave {
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+
+.wrapper {
+    padding-bottom: 100px;
+}
+
+.songDiv {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-bottom: 1px solid black;
+}
+
+.songPlay {
+    float: right;
+}
+
+.songName{
+    margin-bottom: 20px;
+}
 
 
 

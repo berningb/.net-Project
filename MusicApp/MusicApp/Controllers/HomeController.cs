@@ -15,12 +15,23 @@ namespace MusicApp.Controllers
         string artistName = web.HttpContext.Current.User.Identity.Name;
 
         NeoMain neo = new NeoMain();
+
+
+
+
+        Artist art = new Artist("bill", "fga@gail.com");
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Wall()
+        public ActionResult Upload()
+        {
+            return View();
+        }
+
+        public ActionResult SongPage()
         {
             return View();
         }
@@ -36,14 +47,11 @@ namespace MusicApp.Controllers
             Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
 
             // ViewBag.Songs = neo.getSongs(arty);
+            ViewBag.show = JsonConverter.Serialize(MainArty);
+
             return View(MainArty);
         }
-
-
-        public ActionResult Upload()
-        {
-            return View();
-        }
+       
         public ActionResult Search(string Input)
         {
             Artist arty = neo.getArtist(Input);
@@ -55,10 +63,10 @@ namespace MusicApp.Controllers
             }
             return View("Index");
         }
+
         [HttpPost]
         public ActionResult UploadSong(string Title)
         {
-
             web.HttpPostedFileBase songFile = null;
             web.HttpPostedFileBase imageFile = null;
             string fileName = null;
@@ -67,14 +75,12 @@ namespace MusicApp.Controllers
             {
                 imageFile = Request.Files[0];
                 songFile = Request.Files[1];
-
                 if (imageFile != null && imageFile.ContentLength > 0)
                 {
                     fileName = Path.GetFileName(imageFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
                     imageFile.SaveAs(path);
                 }
-
                 if (songFile != null && songFile.ContentLength > 0)
                 {
                     fileName2 = Path.GetFileName(songFile.FileName);
@@ -86,13 +92,7 @@ namespace MusicApp.Controllers
             Song song = null;
             song = new Song(arty, Title, fileName, fileName2);
             neo.CreateSong(song, arty);
-
             return RedirectToAction("ProfilePage");
-        }
-
-        public ActionResult SongPage()
-        {
-            return View();
         }
     }
 }

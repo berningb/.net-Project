@@ -288,7 +288,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Wall.cshtml" />
     <Content Include="Views\Home\Playlist.cshtml" />
     <Content Include="Views\Home\Likes.cshtml" />
     <Content Include="Views\Home\Friends.cshtml" />
