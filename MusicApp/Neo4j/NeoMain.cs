@@ -35,6 +35,24 @@ namespace Neo4j
             }
 
         }
+        public string GetProfilePicture(Artist artist)
+        {
+            string ProfilePicture = null;
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+               
+            {
+                
+                var output = session.Run("MATCH (a:Artist {name:" + "'" + artist.Name + "' " + "}) RETURN a.ProfilePicture as ProfilePicture");
+              
+                foreach (var item in output)
+                {
+                    ProfilePicture = ($"{ item["ProfilePicture"].As<string>()}");
+                }
+
+            }
+            return ProfilePicture;
+        }
         public void CreatePlaylist(Playlist playlist, List<Song> songs)
         {
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
