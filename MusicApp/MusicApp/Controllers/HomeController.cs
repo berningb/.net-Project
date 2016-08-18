@@ -30,6 +30,31 @@ namespace MusicApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult EditProfileImage(string Title)
+        {
+            web.HttpPostedFileBase imageFile = null;
+            string fileName = null;
+            if (Request.Files.Count > 0)
+            {
+                imageFile = Request.Files[0];
+
+
+                if (imageFile != null && imageFile.ContentLength > 0)
+                {
+                    fileName = Path.GetFileName(imageFile.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
+                    imageFile.SaveAs(path);
+                }
+
+            }
+            Artist arty = neo.getArtist(artistName);
+            arty.ProfilePicture = fileName;
+            neo.AddProfilePicture(arty);
+            return RedirectToAction("ProfilePage");
+        }
+
+
         public ActionResult ProfilePage()
         {
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
