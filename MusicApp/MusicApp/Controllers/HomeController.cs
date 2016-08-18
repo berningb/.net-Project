@@ -86,7 +86,8 @@ namespace MusicApp.Controllers
                     songFile.SaveAs(path2);
                 }
             }
-            Artist arty = neo.getArtist(artistName);
+
+            Artist arty = neo.getArtist(artistName); 
             Song song = null;
             song = new Song(arty, Title, fileName, fileName2);
             neo.CreateSong(song, arty);
