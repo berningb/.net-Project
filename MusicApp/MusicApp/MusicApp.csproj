@@ -327,6 +327,7 @@
     <Content Include="Views\Home\Uploads.cshtml" />
     <Content Include="Views\Home\ProfilePage.cshtml" />
     <Content Include="Views\Home\SongPage.cshtml" />
+    <Content Include="Views\Home\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Images\" />
