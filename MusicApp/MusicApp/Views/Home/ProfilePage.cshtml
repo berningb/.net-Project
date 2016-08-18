@@ -15,6 +15,26 @@
             @Html.ActionLink("Edit Profile", "EditProfile", "Home")
         </div>
     </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-4">
+
+            @{
+                if (Model.Name == ViewBag.username)
+                {
+                    <button style="visibility:hidden"></button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-user"></span> Follow
+                    </button>
+                }
+            }
+            
+        </div>
+    </div>
 </div>
 <br />
 <div class="container">
