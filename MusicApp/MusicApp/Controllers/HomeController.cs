@@ -17,21 +17,25 @@ namespace MusicApp.Controllers
     {
         string artistName = web.HttpContext.Current.User.Identity.Name;
         CloudStorageAccount blobAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("BlobConnectionString"));
-        
 
+        String artistinput = "";
         NeoMain neo = new NeoMain();
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Wall()
-        {
-            return View();
-        }
         public ActionResult Upload()
         {
             return View();
+        }
+        public ActionResult Follow()
+        {
+            Artist curr = neo.getArtist(artistName);
+            Artist other = neo.getArtist(artistinput);
+            neo.FollowArtist(curr, other);
+            return View("ProfilePage", other);
+
         }
 
 
@@ -103,6 +107,7 @@ namespace MusicApp.Controllers
 
             ViewBag.username = artistName;
             ViewBag.show = MyJsonConverter.Serialize(MainArty);
+
             return View(MainArty);
         }
 
@@ -150,6 +155,7 @@ namespace MusicApp.Controllers
                     }
                 }
                 Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getFollowers(arty));
+                artistinput = finalArtist.Name;
                 return View("ProfilePage", finalArtist);
             }
             return View("Index");
