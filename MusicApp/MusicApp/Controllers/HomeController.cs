@@ -22,7 +22,8 @@ namespace MusicApp.Controllers
         NeoMain neo = new NeoMain();
         public ActionResult Index()
         {
-            return View();
+            //List<Song> songs = neo.get
+            //return View();
         }
 
         public ActionResult Upload()
@@ -49,32 +50,6 @@ namespace MusicApp.Controllers
             Artist arty = neo.getArtist(artistName);
            // neo.FollowArtist(arty, )
         }
-
-        //[HttpPost]
-        //public ActionResult EditProfileImage(string Title)
-        //{
-        //    web.HttpPostedFileBase imageFile = null;
-        //    web.HttpPostedFileBase newName = null;
-        //    string fileName = null;
-        //    string newProfileName = null;
-        //    if (Request.Files.Count > 0)
-        //    {
-        //        newName = Request.Files[0];
-        //        imageFile = Request.Files[1];
-
-        //        if (imageFile != null && imageFile.ContentLength > 0)
-        //        {
-        //            fileName = Path.GetFileName(imageFile.FileName);
-        //            var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
-        //            imageFile.SaveAs(path);
-        //        }
-
-        //    }
-        //    Artist arty = neo.getArtist(artistName);
-        //    arty.ProfilePicture = fileName;
-        //    neo.AddProfilePicture(arty);
-        //    return RedirectToAction("ProfilePage");
-        //}
 
 
         public ActionResult ProfilePage()
