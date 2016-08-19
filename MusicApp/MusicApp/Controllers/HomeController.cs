@@ -39,6 +39,11 @@ namespace MusicApp.Controllers
         {
             return View();
         }
+        public void FollowUser()
+        {
+            Artist arty = neo.getArtist(artistName);
+           // neo.FollowArtist(arty, )
+        }
 
         //[HttpPost]
         //public ActionResult EditProfileImage(string Title)
