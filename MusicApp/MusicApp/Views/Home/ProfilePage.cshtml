@@ -27,12 +27,14 @@
                 }
                 else
                 {
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-user"></span> Follow
-                    </button>
+                    @Html.ActionLink("Follow", "Follow", "Home");
+
+                        @*<button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-user"></span> Follow
+                            </button>*@
                 }
             }
-            
+
         </div>
     </div>
 </div>
