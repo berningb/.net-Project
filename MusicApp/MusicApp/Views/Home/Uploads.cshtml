@@ -2,27 +2,20 @@
 @model List<Song>
 
 
-@{
 
-    foreach (var item in Model)
-    {
-        string imgSource = "https://mp3blob.blob.core.windows.net/container/" + item.ImageFileName;
-        <div class="songDiv">
-            <img src="@imgSource" alt="AltPic" height="50" width="50" />
-            <h2 class="songName"> @item.Title</h2>
-            <span class="hidden" hidden>@item.SongFileName</span>
-            <span class="hiddenTitle" hidden>#@item.Title</span>
-            <div id="@item.Title"></div>
-            <div class="wrapper">
-                <div class="muteUnmute" onclick="muteSound()">Mute</div>
-                <div><input class="volumeSlider" type="range" min="0" max="1" value=".5" step=".01" onchange="volumeChanged(this.value)" /></div>
-                <div onclick="rewind()">Rewind</div>
-                <div onclick="fastForward()">Fast Forward</div>
-                <div class="playPause" onclick="togglePlay()">Pause</div>
-                <div onclick="speedUp()">Speed Up</div>
-                <div onclick="slowDown()">Slow Down</div>
-                <div onclick="restart()">Restart</div>
-            </div>
-        </div>
-    }
-}
+
+<div id="wave"></div>
+<div class="wrapper">
+    <div id="muteUnmute" onclick="muteSound()">Mute</div>
+    <div><input id="volumeSlider" type="range" min="0" max="1" value=".5" step=".01" onchange="volumeChanged(this.value)" /></div>
+    <div onclick="rewind()">Rewind</div>
+    <div onclick="fastForward()">Fast Forward</div>
+    <div id="playPause" onclick="togglePlay()">Pause</div>
+    <div onclick="speedUp()">Speed Up</div>
+    <div onclick="slowDown()">Slow Down</div>
+    <div onclick="restart()">Restart</div>
+</div>
+
+<p id="hidden" hidden>@ViewBag.show</p>
+
+<div id="songList"></div>
