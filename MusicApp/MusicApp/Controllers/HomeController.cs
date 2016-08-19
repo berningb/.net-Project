@@ -40,29 +40,31 @@ namespace MusicApp.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult EditProfileImage(string Title)
-        {
-            web.HttpPostedFileBase imageFile = null;
-            string fileName = null;
-            if (Request.Files.Count > 0)
-            {
-                imageFile = Request.Files[0];
+        //[HttpPost]
+        //public ActionResult EditProfileImage(string Title)
+        //{
+        //    web.HttpPostedFileBase imageFile = null;
+        //    web.HttpPostedFileBase newName = null;
+        //    string fileName = null;
+        //    string newProfileName = null;
+        //    if (Request.Files.Count > 0)
+        //    {
+        //        newName = Request.Files[0];
+        //        imageFile = Request.Files[1];
 
+        //        if (imageFile != null && imageFile.ContentLength > 0)
+        //        {
+        //            fileName = Path.GetFileName(imageFile.FileName);
+        //            var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
+        //            imageFile.SaveAs(path);
+        //        }
 
-                if (imageFile != null && imageFile.ContentLength > 0)
-                {
-                    fileName = Path.GetFileName(imageFile.FileName);
-                    var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
-                    imageFile.SaveAs(path);
-                }
-
-            }
-            Artist arty = neo.getArtist(artistName);
-            arty.ProfilePicture = fileName;
-            neo.AddProfilePicture(arty);
-            return RedirectToAction("ProfilePage");
-        }
+        //    }
+        //    Artist arty = neo.getArtist(artistName);
+        //    arty.ProfilePicture = fileName;
+        //    neo.AddProfilePicture(arty);
+        //    return RedirectToAction("ProfilePage");
+        //}
 
 
         public ActionResult ProfilePage()
@@ -89,6 +91,8 @@ namespace MusicApp.Controllers
             Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
             MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
+           
+
             // ViewBag.Songs = neo.getSongs(arty);
             return View(MainArty);
         }
@@ -111,6 +115,7 @@ namespace MusicApp.Controllers
             }
             Artist artist = neo.getArtist(artistName);
             neo.AddProfilePicture(artist);
+           
 
             return RedirectToAction("ProfilePage");
         }
