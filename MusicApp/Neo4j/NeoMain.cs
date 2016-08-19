@@ -217,6 +217,32 @@ namespace Neo4j
             }
             return artistList;
         }
+        public List<Song> getAllSongs()
+        {
+            List<Song> songList = new List<Song>();
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH(b:Artist)-[:OWNS]->(n:Song) return b.name as name, n.Title as Title");
+
+
+
+                foreach (var item in result)
+                {
+                    string Title = ($"{ item["Title"].As<string>()}");
+                    string artist = ($"{ item["name"].As<string>()}");
+
+                    //string owner = ($"{ item["owner"].As<string>()}");
+                    // Artist arty = getArtist(owner);
+                    Song song = new Song(getArtist(artist), Title);
+                    songList.Add(song);
+
+                }
+            }
+            return songList;
+
+        }
+
         public List<Artist> getFriends(Artist artist)
         {
            
