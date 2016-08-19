@@ -12,7 +12,17 @@
         </div>
         <div class="col-sm-8">
             <h3>@Model.Name</h3>
-            @Html.ActionLink("Edit Profile", "EditProfile", "Home")
+            @{
+                if (Model.Name == ViewBag.username)
+                {
+                    @Html.ActionLink("Edit Profile", "EditProfile", "Home")
+                }
+                else
+                {
+                    <p style="visibility: hidden" id="placeholderForEdit"></p>
+                }
+            }
+            
         </div>
     </div>
     <br />
@@ -23,7 +33,7 @@
             @{
                 if (Model.Name == ViewBag.username)
                 {
-                    <button style="visibility:hidden"></button>
+                    <button style="visibility:hidden"></button> 
                 }
                 else
                 {
