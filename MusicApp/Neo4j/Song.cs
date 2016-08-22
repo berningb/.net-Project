@@ -41,6 +41,12 @@ namespace Neo4j
             ImageFileName = title + "_img.jpg";
             SongFileName = title + "_song.mp3";
         }
+        public Song(string Title, string SongFileName, string ImageFileName)
+        {
+            this.Title = Title;
+            this.SongFileName = SongFileName;
+            this.ImageFileName = ImageFileName;
+        }
         public void Like(Artist artist)
         {
             artist.Likes.Add(this);
