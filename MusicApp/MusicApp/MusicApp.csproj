@@ -283,6 +283,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\song.js" />
     <Content Include="Scripts\wavesurfer.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -325,7 +326,7 @@
     <Content Include="Views\Home\Overview.cshtml" />
     <Content Include="Views\Home\Uploads.cshtml" />
     <Content Include="Views\Home\ProfilePage.cshtml" />
-    <Content Include="Views\Home\SongPage.cshtml" />
+    <Content Include="Views\Home\Song.cshtml" />
     <Content Include="Views\Home\EditProfile.cshtml" />
     <Content Include="Views\Home\Wall.cshtml" />
     <Content Include="Views\Home\Charts.cshtml" />

@@ -8,11 +8,10 @@
 <div class="container-fluid profileBox">
     <div class="row">
         <div class="col-sm-4">
-            <img class="img-circle" src="~/Content/Images/@Model.ProfilePicture" alt="~/Images/profile.png" height="200" width="200">
+            <img class="img-circle" src="~/Content/Images/@Model.ProfilePicture" alt="Profile Picture" height="200" width="200">
         </div>
         <div class="col-sm-8">
             <h3>@Model.Name</h3>
-            @Html.ActionLink("Edit Profile", "EditProfile", "Home")
             @{
                 if (Model.Name == ViewBag.username)
                 {
@@ -23,7 +22,7 @@
                     <p style="visibility: hidden" id="placeholderForEdit"></p>
                 }
             }
-            
+
         </div>
     </div>
     <br />
@@ -38,14 +37,18 @@
                 }
                 else
                 {
-                    @Html.ActionLink("Follow", "Follow", "Home");
-
-                        @*<button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-user"></span> Follow
-                            </button>*@
+                    @Html.ActionLink(
+                                     linkText: "Follow",
+                                     actionName: "Follow",
+                                     controllerName: "Home",
+                                     routeValues: new
+                                     {
+                                         name = Model.Name
+                                     },
+                                     htmlAttributes: null
+                             )
                 }
             }
-
         </div>
     </div>
 </div>
