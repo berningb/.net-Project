@@ -30,14 +30,7 @@ namespace MusicApp.Controllers
         {
             return View();
         }
-        public ActionResult Follow()
-        {
-           
-            return View("ProfilePage");
-
-        }
-
-
+       
         [HttpGet]
         public ActionResult EditProfile()
         {
@@ -106,6 +99,17 @@ namespace MusicApp.Controllers
 
             return RedirectToAction("ProfilePage");
         }
+
+
+        public ActionResult Follow(string name)
+        {
+            
+            Artist curr = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
+            Artist follow = neo.getArtist(name);
+            neo.FollowArtist(curr, follow);
+            return View("ProfilePage", curr);
+        }
+
         public ActionResult Search(string Input)
         {
             Artist arty = neo.getArtist(Input);

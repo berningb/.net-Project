@@ -22,7 +22,7 @@
                     <p style="visibility: hidden" id="placeholderForEdit"></p>
                 }
             }
-            
+
         </div>
     </div>
     <br />
@@ -37,14 +37,18 @@
                 }
                 else
                 {
-                    @Html.ActionLink("Follow", "Follow", "Home");
-
-                        @*<button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-user"></span> Follow
-                            </button>*@
+                    @Html.ActionLink(
+                                     linkText: "Follow",
+                                     actionName: "Follow",
+                                     controllerName: "Home",
+                                     routeValues: new
+                                     {
+                                         name = Model.Name
+                                     },
+                                     htmlAttributes: null
+                             )
                 }
             }
-
         </div>
     </div>
 </div>
