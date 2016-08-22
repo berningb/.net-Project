@@ -1,0 +1,22 @@
+﻿@using Neo4j
+@model List<Song>
+@{
+    ViewBag.Title = "Song";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{ 
+    foreach (var item in Model)
+    {
+        if(item.Title == ViewBag.id)
+        {
+            Song song = item;
+            <span>Song Name:</span>
+            <p>@song.Title</p>
+            <span>Owner:</span> <p>@song.Owner.Name</p>
+            <img src="~/Content/Images/@(song.ImageFileName)" height="100" width="100"/>
+        }
+    }
+}
+

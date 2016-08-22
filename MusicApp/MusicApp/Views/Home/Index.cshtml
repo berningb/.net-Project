@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Neo4j
+@model List<Song>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -11,18 +14,10 @@
 
     <div class="tab-content">
         <div id="wall" class="tab-pane fade in active">
-            <h3>Wall</h3>
-            @Html.Partial("Wall")
-            <div id="rectangle">
-                <img src="~/Images/musicComposition.png" class="img-rounded" alt="MusicNote">
-            </div>
+            @Html.Partial("Wall", Model)
         </div>
         <div id="charts" class="tab-pane fade">
-            <h3>Charts</h3>
-            @Html.Partial("Charts")
-            <div id="rectangle">
-                <img src="~/Images/musicComposition.png" class="img-rounded" alt="MusicNote">
-            </div>
+            @Html.Partial("Charts", Model)
         </div>
 
     </div>

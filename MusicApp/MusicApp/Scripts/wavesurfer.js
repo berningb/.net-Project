@@ -53,9 +53,12 @@ function createSongList() {
         
 
         var songName = document.createElement('h1');
+        var aTag = document.createElement('a');
+        aTag.setAttribute('href', 'Song/' + obj.Songs[i].Title)
         songName.className = 'songName';
         songName.textContent = obj.Songs[i].Title
-        songDiv.appendChild(songName);
+        aTag.appendChild(songName);
+        songDiv.appendChild(aTag);
 
 
         var songImage = document.createElement('img');

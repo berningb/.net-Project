@@ -17,12 +17,13 @@ namespace MusicApp.Controllers
     {
         string artistName = web.HttpContext.Current.User.Identity.Name;
         CloudStorageAccount blobAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("BlobConnectionString"));
-
-        String artistinput = "";
         NeoMain neo = new NeoMain();
+
         public ActionResult Index()
         {
-            return View();
+        List<Song> songs = neo.getAllSongs();
+
+            return View(songs);
         }
 
         public ActionResult Upload()
@@ -31,10 +32,8 @@ namespace MusicApp.Controllers
         }
         public ActionResult Follow()
         {
-            Artist curr = neo.getArtist(artistName);
-            Artist other = neo.getArtist(artistinput);
-            neo.FollowArtist(curr, other);
-            return View("ProfilePage", other);
+           
+            return View("ProfilePage");
 
         }
 
@@ -49,32 +48,6 @@ namespace MusicApp.Controllers
             Artist arty = neo.getArtist(artistName);
            // neo.FollowArtist(arty, )
         }
-
-        //[HttpPost]
-        //public ActionResult EditProfileImage(string Title)
-        //{
-        //    web.HttpPostedFileBase imageFile = null;
-        //    web.HttpPostedFileBase newName = null;
-        //    string fileName = null;
-        //    string newProfileName = null;
-        //    if (Request.Files.Count > 0)
-        //    {
-        //        newName = Request.Files[0];
-        //        imageFile = Request.Files[1];
-
-        //        if (imageFile != null && imageFile.ContentLength > 0)
-        //        {
-        //            fileName = Path.GetFileName(imageFile.FileName);
-        //            var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
-        //            imageFile.SaveAs(path);
-        //        }
-
-        //    }
-        //    Artist arty = neo.getArtist(artistName);
-        //    arty.ProfilePicture = fileName;
-        //    neo.AddProfilePicture(arty);
-        //    return RedirectToAction("ProfilePage");
-        //}
 
 
         public ActionResult ProfilePage()
@@ -155,7 +128,6 @@ namespace MusicApp.Controllers
                     }
                 }
                 Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getFollowers(arty));
-                artistinput = finalArtist.Name;
                 return View("ProfilePage", finalArtist);
             }
             return View("Index");
@@ -208,9 +180,12 @@ namespace MusicApp.Controllers
             return RedirectToAction("ProfilePage");
         }
 
-        public ActionResult SongPage()
+        public ActionResult Song(string id)
         {
-            return View();
+            ViewBag.id = id;
+            List<Song> songs = neo.getAllSongs();
+
+            return View(songs);
         }
     }
 }

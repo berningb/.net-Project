@@ -18,6 +18,12 @@ namespace MusicApp
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: null,
+                url: "{controller}song/{id}",
+                defaults: new { controller = "Home", action = "Index", id = "" }
+            );
         }
     }
 }
