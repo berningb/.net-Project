@@ -4,3 +4,12 @@
 }
 
 
+<h1>List off all songs</h1>
+
+@{ 
+    foreach (var item in Model)
+    {
+        <h3>@item.Title</h3>
+    }
+}
+

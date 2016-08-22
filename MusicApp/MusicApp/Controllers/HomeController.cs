@@ -22,8 +22,8 @@ namespace MusicApp.Controllers
         NeoMain neo = new NeoMain();
         public ActionResult Index()
         {
-            //List<Song> songs = neo.get
-            //return View();
+            List<Song> songs = neo.getAllSongs();
+            return View(songs);
         }
 
         public ActionResult Upload()
