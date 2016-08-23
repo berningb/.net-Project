@@ -17,6 +17,7 @@ namespace Neo4j
         public List<Playlist> Playlists { get; set; }
         public List<Artist> Friends { get; set; }
         public List<Artist> Following { get; set; }
+        public List<Artist> Followers { get; set; }
         public List<ILikeable> Likes { get; set; }
 
         //We need to use a constructor because we need to propery instantiate new model objects on Neo4j
@@ -33,7 +34,7 @@ namespace Neo4j
 
             //NeoMain.CreateArtist(this);
         }
-        public Artist(string name, string email, List<Song> songs, List<Artist> Friends, List<Artist> Following)
+        public Artist(string name, string email, List<Song> songs, List<Artist> Friends, List<Artist> Following, List<Artist> followers)
         {
             Name = name;
             Email = email;
@@ -43,8 +44,8 @@ namespace Neo4j
             Playlists = new List<Playlist>();
             this.Friends = Friends;
             this.Following = Following;
+            Followers = followers;
           
-
         }
     }
 }

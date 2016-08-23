@@ -183,12 +183,12 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
             using (var session = driver.Session())
             {
-                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})-[:FOLLOWING]->(b:Artist) return b.name as name, b.Email as Email");
+                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})-[r:FOLLOWING]->(b:Artist) return b.name as name, b.Email as Email");
                 foreach (var record in result)
                 {
                     string output = ($"{ record["name"].As<string>()}");
                     string Email = ($"{ record["Email"].As<string>()}");
-                    Artist artist1 = new Artist(output, output);
+                    Artist artist1 = new Artist(output, Email);
                     artists.Add(artist1);
                 }
 
@@ -216,7 +216,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
-                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})-[:FOLLOWING]-> (b:Artist) return b.name as name, b.Email as Email");
+                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})<-[:FOLLOWING]-(b:Artist) return b.name as name, b.Email as Email");
                 foreach (var record in result)
                 {
                     string output = ($"{ record["name"].As<string>()}");
@@ -227,6 +227,30 @@ namespace Neo4j
                  
             }
             return artists;
+        }
+        public bool isFollowing(Artist mainArtist, Artist searchedArtist)
+        {
+            bool isfollow = false;
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH (a:Artist {name: " + "'" + mainArtist.Name + "'" + "})-[:FOLLOWING]->(b:Artist {name:" + "'" + searchedArtist.Name + "'" + " }) RETURN b.Name as Name");
+
+                foreach(var record in result)
+                {
+                    string name = ($"{ record["name"].As<string>()}");
+                    if(name == searchedArtist.Name)
+                    {
+                        isfollow = true;
+                    }
+                    else
+                    {
+                        isfollow = false;
+                    }
+                }
+
+            }
+            return isfollow;
         }
         public List<Artist> getAllArtist()
         {
