@@ -105,22 +105,23 @@ namespace Neo4j
         {
 
             Artist arty = null;
+            Artist finalArtist = null;
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                
-             var output = session.Run("MATCH (b:Artist {name: " + "'" + name + "'" + "}) return b.name as name");
+             var output = session.Run("MATCH (b:Artist {name: " + "'" + name + "'" + "}) return b.name as name, b.Email as Email");
                 string artistName;
                 foreach (var item in output)
                 {
                     artistName = ($"{ item["name"].As<string>()}");
-                   // string artistEmail = ($"{ item["Email"].As<string>()}");
-                     arty = new Artist(artistName, artistName);
+                   string artistEmail = ($"{ item["Email"].As<string>()}");
+                     arty = new Artist(artistName, artistEmail);
+                     
                 }
-
+                finalArtist = new Artist(arty.Name, arty.Email, getSongs(arty), getFriends(arty), getPeopleYouFollow(arty), getFollowers(arty));
             }
-            return arty;
-
+            return finalArtist;
             }
         public void AddFriend(Artist fromArtist, Artist toArtist)
         {
@@ -159,7 +160,7 @@ namespace Neo4j
 
 
         
-        public List<Song> getSongs(Artist artist, string path)
+        public List<Song> getSongs(Artist artist)
         {
             List<Song> songs = new List<Song>();
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
