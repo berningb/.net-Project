@@ -46,7 +46,7 @@ namespace MusicApp.Controllers
 
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
             Artist arty = neo.getArtist(artistName);
-            List<Song> songs = neo.getSongs(arty, folder);
+            List<Song> songs = neo.getSongs(arty);
             foreach(Song s in songs)
             {
                 if(!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
@@ -59,10 +59,10 @@ namespace MusicApp.Controllers
                 }
             }
             List<Artist> Friends = neo.getFriends(arty);
-            List<Artist> Followers = neo.getFollowers(arty);
-            List<Artist> Following = neo.getPeopleYouFollow(arty);
+            List<Artist> followers = neo.getFollowers(arty);
+            List<Artist> following = neo.getPeopleYouFollow(arty);
 
-            Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following, Followers);
+            Artist MainArty = new Artist(artistName, artistName, songs, Friends, following, followers);
             MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
             ViewBag.username = artistName;
@@ -122,7 +122,7 @@ namespace MusicApp.Controllers
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
             if (arty != null)
             {
-                List<Song> songs = neo.getSongs(arty, folder);
+                List<Song> songs = neo.getSongs(arty);
                 foreach (Song s in songs)
                 {
                     if (!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
@@ -145,6 +145,7 @@ namespace MusicApp.Controllers
                    
                 }
                 ViewBag.IsFollowing = isFollowing;
+                
                 ViewBag.show = MyJsonConverter.Serialize(finalArtist);
 
                 return View("ProfilePage", finalArtist);
