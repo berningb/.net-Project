@@ -156,6 +156,9 @@ namespace Neo4j
                 session.Run("MATCH(b:Artist {name: " +"'" + follower.Name +"'"+ "}), (c:Artist {name: " +"'"+ followee.Name +"'" + "}) CREATE (b)-[:FOLLOWING]->(c)");
             }
         }
+
+
+        
         public List<Song> getSongs(Artist artist, string path)
         {
             List<Song> songs = new List<Song>();
