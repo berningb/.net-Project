@@ -36,13 +36,6 @@ namespace MusicApp.Controllers
         {
             return View();
         }
-        public void FollowUser()
-        {
-            Artist arty = neo.getArtist(artistName);
-           // neo.FollowArtist(arty, )
-        }
-
-
         public ActionResult ProfilePage()
         {
 
@@ -107,6 +100,15 @@ namespace MusicApp.Controllers
             Artist curr = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
             Artist follow = neo.getArtist(name);
             neo.FollowArtist(curr, follow);
+            return View("ProfilePage", curr);   
+        }
+
+        public ActionResult UnFollow(string name)
+        {
+
+            Artist curr = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
+            Artist follow = neo.getArtist(name);
+            neo.Unfollow(curr, follow);
             return View("ProfilePage", curr);
         }
 
@@ -142,6 +144,9 @@ namespace MusicApp.Controllers
                    
                 }
                 ViewBag.IsFollowing = isFollowing;
+                Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getFollowers(arty));
+                ViewBag.show = MyJsonConverter.Serialize(finalArtist);
+
                 return View("ProfilePage", finalArtist);
             }
             return View("Index");

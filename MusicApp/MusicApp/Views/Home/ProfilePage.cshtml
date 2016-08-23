@@ -31,13 +31,28 @@
         <div class="col-sm-4">
 
             @{
-                if (Model.Name == ViewBag.username)
+                if (Model.Name == HttpContext.Current.User.Identity.Name)
                 {
-                    <button style="visibility:hidden"></button>
+
                 }
                 else
                 {
-                    @Html.ActionLink(
+                    if (true)
+                    {
+                        @Html.ActionLink(
+                                     linkText: "unollow",
+                                     actionName: "UnFollow",
+                                     controllerName: "Home",
+                                     routeValues: new
+                                     {
+                                         name = Model.Name
+                                     },
+                                     htmlAttributes: null
+                             )
+                    }
+                    else
+                    {
+                        @Html.ActionLink(
                                      linkText: "Follow",
                                      actionName: "Follow",
                                      controllerName: "Home",
@@ -47,6 +62,8 @@
                                      },
                                      htmlAttributes: null
                              )
+                    }
+
                 }
             }
         </div>
