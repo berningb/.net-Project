@@ -59,9 +59,10 @@ namespace MusicApp.Controllers
                 }
             }
             List<Artist> Friends = neo.getFriends(arty);
-            List<Artist> Following = neo.getFollowers(arty);
+            List<Artist> Followers = neo.getFollowers(arty);
+            List<Artist> Following = neo.getPeopleYouFollow(arty);
 
-            Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following);
+            Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following, Followers);
             MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
             ViewBag.username = artistName;
@@ -144,7 +145,6 @@ namespace MusicApp.Controllers
                    
                 }
                 ViewBag.IsFollowing = isFollowing;
-                Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getFollowers(arty));
                 ViewBag.show = MyJsonConverter.Serialize(finalArtist);
 
                 return View("ProfilePage", finalArtist);
