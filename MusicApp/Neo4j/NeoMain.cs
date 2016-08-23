@@ -176,6 +176,37 @@ namespace Neo4j
             }
             return songs;
         }
+        public List<Artist> getPeopleYouFollow(Artist artist)
+        {
+            List<Artist> artists = new List<Artist>();
+
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})-[:FOLLOWING]->(b:Artist) return b.name as name, b.Email as Email");
+                foreach (var record in result)
+                {
+                    string output = ($"{ record["name"].As<string>()}");
+                    string Email = ($"{ record["Email"].As<string>()}");
+                    Artist artist1 = new Artist(output, output);
+                    artists.Add(artist1);
+                }
+
+            }
+            return artists;
+
+       }
+        public List<Song> getMostLiked()
+        {
+            List<Song> songs = new List<Song>();
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH (a:Artist)-[:LIKES]->(s:Song) WITH a,count(s) as rels, collect(s) as songs WHERE rels > 1 RETURN a, songs.Name as Name, songs.Owner as Owner, rels");
+
+            }
+            return songs;
+        }
 
         public List<Artist> getFollowers(Artist artist)
         {
