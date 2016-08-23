@@ -4,9 +4,9 @@ var wave;
 var r;
 
 window.onload = function () {
-    console.log('hey');
     var thing = document.getElementById("hidden").innerHTML;
     console.log(thing)
+
     obj = eval("(" + thing + ")");
 
     console.log(obj);

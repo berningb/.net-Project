@@ -132,6 +132,10 @@ namespace MusicApp.Controllers
                     }
                 }
                 Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getFollowers(arty));
+                ViewBag.show = MyJsonConverter.Serialize(finalArtist);
+                ViewBag.username = finalArtist.Name;
+
+
                 return View("ProfilePage", finalArtist);
             }
             return View("Index");
