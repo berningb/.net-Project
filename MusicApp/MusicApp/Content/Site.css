@@ -80,6 +80,17 @@ textarea {
 
 
 
+#SONGSongName{
+    color: red;
+}
+#SONGSongDiv{
+    width: 300px;
+    height: 200px;
+    border : 1px solid black;
+}
+#SONGSongLab{
+    font-size: 2em;
+}
 
 
 

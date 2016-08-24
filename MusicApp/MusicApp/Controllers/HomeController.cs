@@ -21,7 +21,7 @@ namespace MusicApp.Controllers
 
         public ActionResult Index()
         {
-        List<Song> songs = neo.getAllSongs();
+            List<Song> songs = neo.getAllSongs();
 
             return View(songs);
         }
@@ -30,7 +30,7 @@ namespace MusicApp.Controllers
         {
             return View();
         }
-       
+
         [HttpGet]
         public ActionResult EditProfile()
         {
@@ -47,10 +47,10 @@ namespace MusicApp.Controllers
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
             Artist arty = neo.getArtist(artistName);
             List<Song> songs = neo.getSongs(arty);
-            foreach(Song s in songs)
+            foreach (Song s in songs)
             {
-                if(!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
-                { 
+                if (!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
+                {
                     blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
                     using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
                     {
@@ -59,10 +59,10 @@ namespace MusicApp.Controllers
                 }
             }
             List<Artist> Friends = neo.getFriends(arty);
-            List<Artist> followers = neo.getFollowers(arty);
-            List<Artist> following = neo.getPeopleYouFollow(arty);
+            List<Artist> Followers = neo.getFollowers(arty);
+            List<Artist> Following = neo.getPeopleYouFollow(arty);
 
-            Artist MainArty = new Artist(artistName, artistName, songs, Friends, following, followers);
+            Artist MainArty = new Artist(artistName, artistName, songs, Friends, Following, Followers);
             MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
             ViewBag.username = artistName;
@@ -76,11 +76,11 @@ namespace MusicApp.Controllers
         {
             web.HttpPostedFileBase imageFile = null;
             string fileName = null;
-            if(Request.Files.Count > 0)
+            if (Request.Files.Count > 0)
             {
                 imageFile = Request.Files[0];
 
-                if(imageFile != null && imageFile.ContentLength > 0)
+                if (imageFile != null && imageFile.ContentLength > 0)
                 {
                     fileName = Path.GetFileName(imageFile.FileName);
                     var path = Path.Combine(Server.MapPath("~/Content/Images/"), fileName);
@@ -89,29 +89,66 @@ namespace MusicApp.Controllers
             }
             Artist artist = neo.getArtist(artistName);
             neo.AddProfilePicture(artist);
-           
+
 
             return RedirectToAction("ProfilePage");
         }
 
+        //public Boolean checkFollow(List<Artist> artists, Artist follow)
+        //{
+        //    bool isFollowing = false;
+        //    foreach (var item in artists)
+        //    {
+        //        if (item.Name == follow.Name)
+        //        {
+        //            isFollowing = true;
+        //        }
 
-        public ActionResult Follow(string name)
-        {
-            
-            Artist curr = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
-            Artist follow = neo.getArtist(name);
-            neo.FollowArtist(curr, follow);
-            return View("ProfilePage", curr);   
-        }
+        //    }
+        //    return isFollowing;
+        //}
 
-        public ActionResult UnFollow(string name)
-        {
 
-            Artist curr = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
-            Artist follow = neo.getArtist(name);
-            neo.Unfollow(curr, follow);
-            return View("ProfilePage", curr);
-        }
+        //public ActionResult Follow(string name)
+        //{
+
+        //    Artist curr = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
+        //    Artist follow = neo.getArtist(name);
+        //    ViewBag.show = MyJsonConverter.Serialize(follow);
+
+        //    if (checkFollow(curr.Following, follow))
+        //    {
+        //        ViewBag.tell = "i am already following";
+        //        ViewBag.IsFollowing = false;
+        //    }
+        //    else
+        //    {
+        //        neo.FollowArtist(curr, follow);
+        //        ViewBag.tell = "i just started following them";
+        //        ViewBag.IsFollowing = true;
+        //    }
+        //    return View("ProfilePage", follow);
+        //}
+
+
+        //public ActionResult UnFollow(string name)
+        //{
+        //    Artist curr = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
+        //    Artist follow = neo.getArtist(name);
+        //    ViewBag.show = MyJsonConverter.Serialize(follow);
+        //    if (checkFollow(curr.Following, follow))
+        //    {
+        //        ViewBag.tell = "i am following, so now i will unfollow";
+        //        neo.Unfollow(curr, follow);
+        //        ViewBag.IsFollowing = true;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.tell = "i just started following them";
+        //        ViewBag.IsFollowing = false;
+        //    }
+        //    return View("ProfilePage", follow);
+        //}
 
         public ActionResult Search(string Input)
         {
@@ -135,17 +172,16 @@ namespace MusicApp.Controllers
                     }
                 }
                 bool isFollowing = false;
-                Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty),neo.getPeopleYouFollow(arty), neo.getFollowers(arty));
-                foreach(var item in finalArtist.Followers)
+                Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getPeopleYouFollow(arty), neo.getFollowers(arty));
+                foreach (var item in finalArtist.Followers)
                 {
-                    if(item.Name == artistName)
+                    if (item.Name == artistName)
                     {
                         isFollowing = true;
                     }
-                   
+
                 }
                 ViewBag.IsFollowing = isFollowing;
-                
                 ViewBag.show = MyJsonConverter.Serialize(finalArtist);
 
                 return View("ProfilePage", finalArtist);
@@ -168,7 +204,7 @@ namespace MusicApp.Controllers
             {
                 imageFile = Request.Files[0];
                 songFile = Request.Files[1];
-                
+
                 if (imageFile != null && imageFile.ContentLength > 0)
                 {
                     //imageFileName = Path.GetFileName(imageFile.FileName);
@@ -195,7 +231,7 @@ namespace MusicApp.Controllers
                 }
             }
 
-            Artist arty = neo.getArtist(artistName); 
+            Artist arty = neo.getArtist(artistName);
             Song song = new Song(arty, Title);//, imageFileName, songFileName);
             song.ImageFileName = imageFileName;
             neo.CreateSong(song, arty);

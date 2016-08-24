@@ -1,5 +1,5 @@
 ﻿body {
-
+    background-color: #595246;
 }
 
 ::-webkit-scrollbar { 
@@ -50,6 +50,8 @@
     padding: 15px;
     font-weight: 600;
 }
+
+
 
 
 

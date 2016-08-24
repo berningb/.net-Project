@@ -30,17 +30,18 @@
     <div class="row">
         <div class="col-sm-4">
 
-            @{
+            @*@{
                 if (Model.Name == HttpContext.Current.User.Identity.Name)
                 {
 
                 }
                 else
                 {
+                    <p>@ViewBag.tell</p>
                     if (ViewBag.IsFollowing)
                     {
                         @Html.ActionLink(
-                                     linkText: "unollow",
+                                     linkText: "Unfollow",
                                      actionName: "UnFollow",
                                      controllerName: "Home",
                                      routeValues: new
@@ -65,7 +66,7 @@
                     }
 
                 }
-            }
+            }*@
         </div>
     </div>
 </div>
