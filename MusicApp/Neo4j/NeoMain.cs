@@ -53,12 +53,14 @@ namespace Neo4j
             }
             return ProfilePicture;
         }
-        public void CreatePlaylist(Playlist playlist, List<Song> songs)
+        public void CreatePlaylist(Artist artist, string title)
         {
-            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
-                using(var session = driver.Session())
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
             {
-                session.Run("CREATE (a:Playlist {Title:" + playlist.Title + "} ");
+                session.Run("CREATE (a:Playlist {Title:" + title + "})");
+                session.Run("MATCH (a:Artist {name : " + "'" + artist.Name + "'" + "})-[OWNS]->(b:Playlist { Title: " + "'" + title + "'" + "})");
+           
             }
         }
         public void CreateSong(Song song, Artist artist)
