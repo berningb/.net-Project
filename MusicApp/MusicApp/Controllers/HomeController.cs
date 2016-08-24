@@ -49,6 +49,12 @@ namespace MusicApp.Controllers
            // neo.FollowArtist(arty, )
         }
 
+        public ActionResult Playlist()
+        {
+
+            return View();
+        }
+
 
         public ActionResult ProfilePage()
         {

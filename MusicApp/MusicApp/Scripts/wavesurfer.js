@@ -29,6 +29,8 @@ window.onload = function () {
     });
 
     createSongList();
+    
+
 
 
 }
@@ -134,5 +136,4 @@ function restart() {
     wave.play();
     document.getElementById("playPause").innerHTML = "Play";
 }
-
 
