@@ -20,17 +20,19 @@
 </div>
 <br />
 
-@{ 
+@{
     foreach (var item in Model)
     {
-        if(item.Title == ViewBag.id)
+        if (item.Title == ViewBag.id)
         {
             Song song = item;
-            <span>Song Name:</span>
-            <p>@song.Title</p>
-            <span>Owner:</span> <p>@song.Owner.Name</p>
-            <p id="hiddenSong" hidden>@song.SongFileName</p>
-            <img src="~/Content/Images/@(song.ImageFileName)" height="100" width="100"/>
+
+                <p id="SONGSongName">@song.Title</p>
+
+                <p id="SONGOwnerName">@song.Owner.Name</p>
+                <img id="SONGUserImage" src="~/Content/Images/@(song.Owner.ProfilePicture)" height="100" width="100" />
+
+                <p id="hiddenSong" hidden>@song.SongFileName</p>
         }
     }
 }
