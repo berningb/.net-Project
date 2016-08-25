@@ -5,15 +5,25 @@
 }
 @using (Html.BeginForm("UploadSong", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-
-    <label>
-        <span>Title :</span>
-        <input id="Title" type="text" name="Title" placeholder="some name" required />
-    </label>
-    <br>
-    <span>Image (JPG):</span>
-    <input type="file" name="image" />
-    <span>Song (MP3):</span>
-    <input type="file" name="file" />
-    <input type="submit" name="Submit" id="Submit" value="Upload" />
+    <div id="uploadContainer">
+        <br />
+        <br />
+        <label>
+            <span>Title :</span>
+            <input id="Title" type="text" name="Title" placeholder="some name" required />
+        </label>
+        <br>
+        <br />
+        <span>Image (JPG):</span>
+        <br />
+        <input type="file" name="image" />
+        <br />
+        <span>Song (MP3):</span>
+        <br />
+        <input type="file" name="file" />
+        <br />
+        <input type="submit" name="Submit" id="Submit" value="Upload" />
+        <br />
+        <br />
+    </div>
 }

@@ -262,3 +262,13 @@ body {
 .tab-pane fade in active {
     color: #0588A6;
 }
+
+#uploadContainer {
+    background-color: #0588A6;
+    color: white;
+    border-radius: 10px;
+    align-content: center;
+    text-align: center;
+    display: inline-block;
+    padding: 10px;
+}

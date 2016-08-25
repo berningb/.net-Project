@@ -27,6 +27,11 @@ namespace MusicApp.Controllers
             return View(songs);
         }
 
+        public ActionResult UnknownUser()
+        {
+            return View();
+        }
+
         public ActionResult Upload()
         {
             return View();
