@@ -37,11 +37,6 @@ namespace MusicApp.Controllers
         {
             return View();
         }
-        public ActionResult ProfilePage(string name)
-        {
-            Artist arty = neo.getArtist(artistName);
-           // neo.FollowArtist(arty, )
-        }
 
         public ActionResult Playlist()
         {
@@ -50,9 +45,9 @@ namespace MusicApp.Controllers
         }
 
 
-        public ActionResult ProfilePage()
+        public ActionResult ProfilePage(string name)
         {
-            
+
             CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("container");
             CloudBlockBlob blockBlob;
@@ -61,10 +56,10 @@ namespace MusicApp.Controllers
             string imgfolder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             Artist arty = neo.getArtist(artistName);
             List<Song> songs = neo.getSongs(arty);
-            foreach(Song s in songs)
+            foreach (Song s in songs)
             {
-                if(!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
-                { 
+                if (!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
+                {
                     blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
                     using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
                     {
@@ -74,12 +69,12 @@ namespace MusicApp.Controllers
                 if (!System.IO.File.Exists(imgfolder + "/" + s.ImageFileName))
                 {
                     blockBlob = container.GetBlockBlobReference(s.ImageFileName);
-                    using(var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + s.ImageFileName))
+                    using (var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + s.ImageFileName))
                     {
                         blockBlob.DownloadToStream(fileStream);
                     }
                 }
-              
+
             }
             if (picUploaded)
             {
@@ -91,17 +86,17 @@ namespace MusicApp.Controllers
                         blockBlob.DownloadToStream(fileStream);
                     }
                 }
-            //}
+            }
 
-           
-            //Artist MainArty = neo.getArtist(name);
-            //MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
-            //ViewBag.username = artistName;
-            //ViewBag.show = MyJsonConverter.Serialize(MainArty);
-            
-           
-            return View(name);
+            Artist MainArty = neo.getArtistById(name);
+            MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
+
+            ViewBag.username = artistName;
+            ViewBag.show = MyJsonConverter.Serialize(MainArty);
+
+
+            return View(MainArty);
         }
 
         [HttpPost]
@@ -187,7 +182,9 @@ namespace MusicApp.Controllers
                     }
                 }
 
-                Artist finalArtist = new Artist(arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getPeopleYouFollow(arty), neo.getFollowers(arty));
+                Artist arty3 = neo.getArtist(Input);
+                String newId = arty3.Id;
+                Artist finalArtist = new Artist(newId, arty.Name, arty.Email, songs, neo.getFriends(arty), neo.getPeopleYouFollow(arty), neo.getFollowers(arty));
                 ViewBag.me = web.HttpContext.Current.User.Identity.Name;
                 ViewBag.show = MyJsonConverter.Serialize(finalArtist);
 
