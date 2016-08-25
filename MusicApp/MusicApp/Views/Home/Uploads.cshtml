@@ -14,6 +14,26 @@
     <div onclick="speedUp()">Speed Up</div>
     <div onclick="slowDown()">Slow Down</div>
     <div onclick="restart()">Restart</div>
+    <button onclick="addToPlaylist();" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-plus"></span> Add to Playlist
+    </button>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Choose a Playlist</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="display"></p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <p id="hidden" hidden>@ViewBag.show</p>
