@@ -176,7 +176,7 @@ namespace Neo4j
                 session.Run("MATCH(b:Artist {name: " +"'" + fromArtist.Name + "'" + "}), (c:Artist {name: " +"'" + toArtist.Name + "'"+ "}) CREATE (b)-[:FRIEND]->(c)");
             }
         }
-        public void RemoveFiend(Artist fromArtist, Artist toArtist)
+        public void RemoveFriend(Artist fromArtist, Artist toArtist)
         {
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
             using (var session = driver.Session())

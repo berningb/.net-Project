@@ -18,10 +18,12 @@ namespace MusicApp.Controllers
         string artistName = web.HttpContext.Current.User.Identity.Name;
         CloudStorageAccount blobAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("BlobConnectionString"));
         NeoMain neo = new NeoMain();
+        bool picUploaded = false;
 
         public ActionResult Index()
         {
-        List<Song> songs = neo.getAllSongs();
+            
+            List<Song> songs = neo.getAllSongs();
 
             return View(songs);
         }
@@ -38,8 +40,7 @@ namespace MusicApp.Controllers
         }
         public ActionResult ProfilePage()
         {
-
-
+            
             CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("container");
             CloudBlockBlob blockBlob;
@@ -66,22 +67,27 @@ namespace MusicApp.Controllers
                         blockBlob.DownloadToStream(fileStream);
                     }
                 }
-                if(!System.IO.File.Exists(imgfolder + "/" + arty.ProfilePicture))
+              
+            }
+            if (picUploaded)
+            {
+                if (!System.IO.File.Exists(imgfolder + "/" + arty.ProfilePicture))
                 {
                     blockBlob = container.GetBlockBlobReference(arty.ProfilePicture);
-                    using(var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + arty.ProfilePicture))
+                    using (var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + arty.ProfilePicture))
                     {
                         blockBlob.DownloadToStream(fileStream);
                     }
                 }
-
             }
+
 
 
             List<Artist> Friends = neo.getFriends(arty);
             List<Artist> followers = neo.getFollowers(arty);
             List<Artist> following = neo.getPeopleYouFollow(arty);
-
+            
+           
             Artist MainArty = new Artist(artistName, artistName, songs, Friends, following, followers);
             MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
@@ -110,6 +116,7 @@ namespace MusicApp.Controllers
                     fileName = Title + "_img.jpg";
                     using (var fileStream = imageFile.InputStream)
                     {
+                        picUploaded = true;
                         blockBlob.UploadFromStream(fileStream);
                     }
                 }
@@ -146,6 +153,7 @@ namespace MusicApp.Controllers
             CloudBlobContainer container = blobClient.GetContainerReference("container");
             CloudBlockBlob blockBlob;
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
+            string imgfolder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             if (arty != null)
             {
                 List<Song> songs = neo.getSongs(arty);
@@ -155,6 +163,14 @@ namespace MusicApp.Controllers
                     {
                         blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
                         using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
+                        {
+                            blockBlob.DownloadToStream(fileStream);
+                        }
+                    }
+                    if (!System.IO.File.Exists(folder + "/" + s.Title + "_img.jpg"))
+                    {
+                        blockBlob = container.GetBlockBlobReference(s.Title + "_img.jpg");
+                        using (var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + s.Title + "_img.jpg"))
                         {
                             blockBlob.DownloadToStream(fileStream);
                         }
@@ -197,9 +213,6 @@ namespace MusicApp.Controllers
                 
                 if (imageFile != null && imageFile.ContentLength > 0)
                 {
-                    //imageFileName = Path.GetFileName(imageFile.FileName);
-                    //var path = Path.Combine(Server.MapPath("~/Content/Images/"), imageFileName);
-                    //imageFile.SaveAs(path);
                     CloudBlockBlob blockBlob = container.GetBlockBlobReference(Title + "_img.jpg");
                     imageFileName = Title + "_img.jpg";
                     using (var fileStream = imageFile.InputStream)
