@@ -18,6 +18,7 @@ namespace MusicApp.Controllers
         string artistName = web.HttpContext.Current.User.Identity.Name;
         CloudStorageAccount blobAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("BlobConnectionString"));
         NeoMain neo = new NeoMain();
+        bool picUploaded = false;
 
         public ActionResult Index()
         {
@@ -38,43 +39,58 @@ namespace MusicApp.Controllers
         }
         public ActionResult ProfilePage(string name)
         {
+            Artist arty = neo.getArtist(artistName);
+           // neo.FollowArtist(arty, )
+        }
+
+        public ActionResult Playlist()
+        {
+
+            return View();
+        }
 
 
-            //CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
-            //CloudBlobContainer container = blobClient.GetContainerReference("container");
-            //CloudBlockBlob blockBlob;
+        public ActionResult ProfilePage()
+        {
+            
+            CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("container");
+            CloudBlockBlob blockBlob;
 
-            //string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
-            //string imgfolder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
-            //Artist arty = neo.getArtist(artistName);
-            //List<Song> songs = neo.getSongs(arty);
-            //foreach (Song s in songs)
-            //{
-            //    if (!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
-            //    {
-            //        blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
-            //        using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
-            //        {
-            //            blockBlob.DownloadToStream(fileStream);
-            //        }
-            //    }
-            //    if (!System.IO.File.Exists(imgfolder + "/" + s.ImageFileName))
-            //    {
-            //        blockBlob = container.GetBlockBlobReference(s.ImageFileName);
-            //        using (var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + s.ImageFileName))
-            //        {
-            //            blockBlob.DownloadToStream(fileStream);
-            //        }
-            //    }
-            //    //if(!System.IO.File.Exists(imgfolder + "/" + arty.ProfilePicture))
-            //    //{
-            //    //    blockBlob = container.GetBlockBlobReference(arty.ProfilePicture);
-            //    //    using(var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + arty.ProfilePicture))
-            //    //    {
-            //    //        blockBlob.DownloadToStream(fileStream);
-            //    //    }
-            //    //}
-
+            string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
+            string imgfolder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
+            Artist arty = neo.getArtist(artistName);
+            List<Song> songs = neo.getSongs(arty);
+            foreach(Song s in songs)
+            {
+                if(!System.IO.File.Exists(folder + "/" + s.Title + "_song.mp3"))
+                { 
+                    blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
+                    using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
+                    {
+                        blockBlob.DownloadToStream(fileStream);
+                    }
+                }
+                if (!System.IO.File.Exists(imgfolder + "/" + s.ImageFileName))
+                {
+                    blockBlob = container.GetBlockBlobReference(s.ImageFileName);
+                    using(var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + s.ImageFileName))
+                    {
+                        blockBlob.DownloadToStream(fileStream);
+                    }
+                }
+              
+            }
+            if (picUploaded)
+            {
+                if (!System.IO.File.Exists(imgfolder + "/" + arty.ProfilePicture))
+                {
+                    blockBlob = container.GetBlockBlobReference(arty.ProfilePicture);
+                    using (var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + arty.ProfilePicture))
+                    {
+                        blockBlob.DownloadToStream(fileStream);
+                    }
+                }
             //}
 
            
@@ -83,7 +99,8 @@ namespace MusicApp.Controllers
 
             //ViewBag.username = artistName;
             //ViewBag.show = MyJsonConverter.Serialize(MainArty);
-
+            
+           
             return View(name);
         }
 
@@ -106,6 +123,7 @@ namespace MusicApp.Controllers
                     fileName = Title + "_img.jpg";
                     using (var fileStream = imageFile.InputStream)
                     {
+                        picUploaded = true;
                         blockBlob.UploadFromStream(fileStream);
                     }
                 }
@@ -145,6 +163,7 @@ namespace MusicApp.Controllers
             CloudBlobContainer container = blobClient.GetContainerReference("container");
             CloudBlockBlob blockBlob;
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
+            string imgfolder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
             if (arty != null)
             {
                 List<Song> songs = neo.getSongs(arty);
@@ -154,6 +173,14 @@ namespace MusicApp.Controllers
                     {
                         blockBlob = container.GetBlockBlobReference(s.Title + "_song.mp3");
                         using (var fileStream = System.IO.File.OpenWrite(folder + "/" + s.Title + "_song.mp3"))
+                        {
+                            blockBlob.DownloadToStream(fileStream);
+                        }
+                    }
+                    if (!System.IO.File.Exists(folder + "/" + s.Title + "_img.jpg"))
+                    {
+                        blockBlob = container.GetBlockBlobReference(s.Title + "_img.jpg");
+                        using (var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + s.Title + "_img.jpg"))
                         {
                             blockBlob.DownloadToStream(fileStream);
                         }
@@ -188,9 +215,6 @@ namespace MusicApp.Controllers
 
                 if (imageFile != null && imageFile.ContentLength > 0)
                 {
-                    //imageFileName = Path.GetFileName(imageFile.FileName);
-                    //var path = Path.Combine(Server.MapPath("~/Content/Images/"), imageFileName);
-                    //imageFile.SaveAs(path);
                     CloudBlockBlob blockBlob = container.GetBlockBlobReference(Title + "_img.jpg");
                     imageFileName = Title + "_img.jpg";
                     using (var fileStream = imageFile.InputStream)

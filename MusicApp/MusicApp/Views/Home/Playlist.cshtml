@@ -2,19 +2,67 @@
 @model List<Playlist>   
 <h2 class="page-header">Playlist</h2>
 
+@*<div id="playlist">
+    <button onclick="myFunction()" type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-plus"></span> Create New Playlist
+    </button>
+    <ul id='list'></ul>
+    <p id="playlist"></p>
+    
+</div>*@
 
-<div class="row">
-    @{
-        foreach (Playlist plist in Model)
-        {
-            <div class="col-sm-3 keeper">
-                <div class="box">
-                    @plist.Title
-                    <img class="img-circle img" src="~/Images/test.jpg" />
-                </div>
-            </div>
-        }
-    }
+@*<form id="form">
+
+    <h1><b>Please enter data</b></h1>
+    <hr size="3" />
+    <br>
+
+    <label for="title">Title</label> <input id="title" type="text" />
+    <br>
+
+    <label for="name">Actor</label><input id="name" type="text" />
+    <br>
+
+    <label for="tickets">tickets</label><input id="tickets" type="text" />
+    <br>
+    <br>
+
+    <button onclick="myFunction()" type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-plus"></span> Create New Playlist
+    </button>
+
+    <button onclick="secondFunction()" type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-plus"></span> Create New Playlist
+    </button>
+        
+
+        <h2><b>Data:</b></h2>
+        <hr>
+</form>
+
+<div id="display">
+
+</div>
+
+<script src="~/Scripts/playlist.js"></script>*@
+
+<form id="form">
+
+   
+
+    <label for="title">Name Of Playlist: </label> <input id="title" type="text" />
+    <br />
+    <br />
+    <button onclick="gatherTitle(); listOfPlaylist();" type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-plus"></span> Create new playlist
+    </button>
+    <br />
+    <br />
+    <h4>List of Playlists: </h4>
+</form>
+
+<div class="display">
+
 </div>
 
 

@@ -5,12 +5,12 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink("Upload", "Upload")</li>
+        <ul class="nav navbar-nav navbar-right" style="color: white">
+            <li style="color: white">@Html.ActionLink("Upload", "Upload")</li>
            
-            <li class="dropdown">
+            <li class="dropdown" style="color: white">
                 <a href="#" class="dropdown-toggle myDrop" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.GetUserName() <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="color: white">
                     <li>@Html.ActionLink("Home", "Index")</li>
                     <li> <a href="Home/ProfilePage/@User.Identity.GetUserId()">Profile Page</a> </li>
                     <li role="separator" class="divider"></li>
@@ -26,7 +26,7 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right" style="color: white">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>

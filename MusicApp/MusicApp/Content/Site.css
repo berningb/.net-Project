@@ -227,3 +227,38 @@ a.classname
                 display: inline-block;
                 padding: 0 10px;
             }
+
+
+.navbar-default {
+    background-color: #29B9D9;
+}
+
+.nav.navbar-nav.navbar-right li a {
+    color: white;
+}
+
+.dropdown-menu {
+    background-color: #595246;
+}
+
+body {
+    background-color: #F2ECD8;
+}
+
+.profileBox {
+    background-color: #D9D9D7;
+    border-radius: 10px;
+}
+
+#wave {
+    background-color: #0588A6;
+    border-radius: 10px;
+}
+
+.tab-pane fade {
+    color: #0588A6;
+}
+
+.tab-pane fade in active {
+    color: #0588A6;
+}
