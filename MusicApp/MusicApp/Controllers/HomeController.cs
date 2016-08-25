@@ -79,14 +79,14 @@ namespace MusicApp.Controllers
                         blockBlob.DownloadToStream(fileStream);
                     }
                 }
-                if(!System.IO.File.Exists(imgfolder + "/" + arty.ProfilePicture))
-                {
-                    blockBlob = container.GetBlockBlobReference(arty.ProfilePicture);
-                    using(var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + arty.ProfilePicture))
-                    {
-                        blockBlob.DownloadToStream(fileStream);
-                    }
-                }
+                //if(!System.IO.File.Exists(imgfolder + "/" + arty.ProfilePicture))
+                //{
+                //    blockBlob = container.GetBlockBlobReference(arty.ProfilePicture);
+                //    using(var fileStream = System.IO.File.OpenWrite(imgfolder + "/" + arty.ProfilePicture))
+                //    {
+                //        blockBlob.DownloadToStream(fileStream);
+                //    }
+                //}
 
             }
 
