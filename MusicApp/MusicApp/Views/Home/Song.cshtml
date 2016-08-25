@@ -26,11 +26,25 @@
         if (item.Title == ViewBag.id)
         {
             Song song = item;
+            <p id="SONGSongName">@song.Title</p>
+                <div id="SONGSongDiv">
 
-                <p id="SONGSongName">@song.Title</p>
+                    @Html.ActionLink(
+                                     linkText: "name",
+                                     actionName: "Search",
+                                     controllerName: "Home",
+                                     routeValues: new
+                                     {
+                                         Input = song.Owner.Name
+                                     },
+                                     htmlAttributes: new { @class = "classname img-circle" }
+                             )
 
-                <p id="SONGOwnerName">@song.Owner.Name</p>
-                <img id="SONGUserImage" src="~/Content/Images/@(song.Owner.ProfilePicture)" height="100" width="100" />
+                    <p id="SONGOwnerName">
+                        @song.Owner.Name
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </p>
+                </div>
 
                 <p id="hiddenSong" hidden>@song.SongFileName</p>
         }

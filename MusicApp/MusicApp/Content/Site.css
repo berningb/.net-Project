@@ -73,26 +73,35 @@ textarea {
     float: right;
 }
 
-.songName{
+.songName {
     margin-bottom: 20px;
 }
 
 
 
 
-#SONGSongName{
-    color: red;
-}
-#SONGSongDiv{
-    width: 300px;
-    height: 200px;
-    border : 1px solid black;
-}
-#SONGSongLab{
-    font-size: 2em;
+#SONGSongName {
+    font-size: 3em;
+    position: absolute;
+    top: 100px;
 }
 
+#SONGSongDiv {
+    width: 200px;
+}
 
+#SONGOwnerName{
+    margin-top: 30px;
+    text-align: center;
+}
+a.classname
+{
+    background: url(../Content/Images/images.jpg) no-repeat center center;
+     display: block;
+     width: 200px;
+     height: 200px;
+     text-indent: -9999px; /* hides the link text */
+}
 
 
 

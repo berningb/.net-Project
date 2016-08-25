@@ -21,7 +21,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
-                session.Run("CREATE (a:Artist {name:"+ "'"+ artist.Name + "'"+ "}) SET a.Email = " + "'"+ artist.Email +"'");
+                session.Run("CREATE (a:Artist {name:"+ "'"+ artist.Name + "'"+ "}) SET a.Email = " + "'"+ artist.Email +"'" +"SET a.Id = " +"'" + artist.Id +"'");
             }
         }
         public void AddProfilePicture(Artist artist)

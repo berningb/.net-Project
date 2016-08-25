@@ -13,6 +13,8 @@ namespace MusicApp
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
@@ -20,10 +22,21 @@ namespace MusicApp
             );
 
             routes.MapRoute(
+               name: null,
+               url: "{controller}/{action}/{name}",
+               defaults: new { controller = "Home", action = "ProfilePage", name = "" }
+
+           );
+
+            routes.MapRoute(
                 name: null,
                 url: "{controller}song/{id}",
                 defaults: new { controller = "Home", action = "Index", id = "" }
             );
+
+
+
+           
         }
     }
 }
