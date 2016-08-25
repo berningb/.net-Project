@@ -9,6 +9,7 @@ namespace Neo4j
 {
    public class Artist 
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string ProfilePicture { get; set; }
@@ -21,10 +22,11 @@ namespace Neo4j
         public List<ILikeable> Likes { get; set; }
 
         //We need to use a constructor because we need to propery instantiate new model objects on Neo4j
-        public Artist(string name, string email)
+        public Artist(string name, string email, string id)
         {
             Name = name;
             Email = email;
+            Id = id;
             Songs = new List<Song>();
             Albums = new List<Album>();
             Playlists = new List<Playlist>();

@@ -81,6 +81,30 @@ function createSongList() {
                 wave.load('../Content/MP3/' + r);
             };
         })(r);
+
+
+
+        var del = document.createElement('button');
+        del.textContent = 'Play Song';
+        del.className = 'songPlay'
+        var r = obj.Songs[i].SongFileName;
+        (function (r) {
+            del.onclick = function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/songDelete",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        // Do something interesting here.
+                    }
+                });
+            };
+        })(r);
+
+
+
         songDiv.appendChild(play);
     }
 }

@@ -156,11 +156,12 @@ namespace MusicApp.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    Neo4j.Artist arty = new Neo4j.Artist(user.UserName, user.Email);
+                    Neo4j.Artist arty = new Neo4j.Artist(user.UserName, user.Email, HttpContext.User.Identity.GetUserId());
                     
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     Neo4j.NeoMain neo = new Neo4j.NeoMain();
                     neo.CreateArtist(arty);
+
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

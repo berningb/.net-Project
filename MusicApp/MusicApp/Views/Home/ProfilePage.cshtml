@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid profileBox">
+<p>hey</p>
+@*<div class="container-fluid profileBox">
     <div class="row">
         <div class="col-sm-4">
             <img class="img-circle" src="~/Content/Images/@Model.ProfilePicture" alt="Profile Picture" height="200" width="200">
@@ -30,43 +31,56 @@
     <div class="row">
         <div class="col-sm-4">
 
-            @*@{
+            @{
                 if (Model.Name == HttpContext.Current.User.Identity.Name)
                 {
 
                 }
                 else
                 {
-                    <p>@ViewBag.tell</p>
-                    if (ViewBag.IsFollowing)
+                    <p>@ViewBag.me</p>
+                    if (Model.Followers.Count == 0)
                     {
                         @Html.ActionLink(
-                                     linkText: "Unfollow",
-                                     actionName: "UnFollow",
-                                     controllerName: "Home",
-                                     routeValues: new
-                                     {
-                                         name = Model.Name
-                                     },
-                                     htmlAttributes: null
-                             )
+                                          linkText: "Follow",
+                                          actionName: "Follow",
+                                          controllerName: "Home",
+                                          routeValues: new
+                                          {
+                                              name = Model.Name
+                                          },
+                                          htmlAttributes: null
+                                  )
                     }
                     else
                     {
-                        @Html.ActionLink(
-                                     linkText: "Follow",
-                                     actionName: "Follow",
-                                     controllerName: "Home",
-                                     routeValues: new
-                                     {
-                                         name = Model.Name
-                                     },
-                                     htmlAttributes: null
-                             )
-                    }
+                        string check = "";
 
+                        foreach (var item in Model.Followers)
+                        {
+                            if (item.Name == ViewBag.me)
+                            {
+                                check = "Follow";
+                            }
+                            else
+                            {
+                                check = "Unfollow";
+                            }
+                        }
+
+                        @Html.ActionLink(
+                                          linkText: check,
+                                          actionName: check,
+                                          controllerName: "Home",
+                                          routeValues: new
+                                          {
+                                              name = Model.Name
+                                          },
+                                          htmlAttributes: null
+                                  )
+                    }
                 }
-            }*@
+            }
         </div>
     </div>
 </div>
@@ -98,6 +112,6 @@
             @Html.Partial("Overview", Model)
         </div>
     </div>
-</div>
+</div>*@
 
 
