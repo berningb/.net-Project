@@ -1,0 +1,33 @@
+﻿@using Neo4j
+@model Artist
+
+<h1 class="page-header">Following</h1>
+<div class="row">
+    @{
+        foreach (var artist in Model.Following)
+        {
+            <div class="col-sm-3 keeper">
+                <div class="box">
+                    @artist.Name
+                    <img class="img-circle img" src="~/Images/test.jpg" />
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<h1 class="page-header">Followers</h1>
+<div class="row">
+    @{
+        foreach (var artist in Model.Followers)
+        {
+            <div class="col-sm-3 keeper">
+                <div class="box">
+                    @artist.Name
+                    <img class="img-circle img" src="~/Images/test.jpg" />
+                </div>
+            </div>
+        }
+    }
+</div>
+

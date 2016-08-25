@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Neo4j
 {
-   public class Playlist : ILikeable, ISongCollection
+   public class Playlist 
     {
         public string Title { get; set; }
         public Artist Owner { get; set; }
         public List<Song> Songs { get; set; }
-        public List<Artist> Likees { get; set; }
+       
 
         //We need to use a constructor because we need to propery instantiate new model objects on Neo4j
         public Playlist(string title, Artist owner)
@@ -20,7 +20,7 @@ namespace Neo4j
             Title = title;
             Owner = owner;
             Songs = new List<Song>();
-            Likees = new List<Artist>();
+         
 
           //  NeoMain.CreatePlaylist(this);
         }
@@ -36,12 +36,7 @@ namespace Neo4j
             Songs.Add(song);
             //NeoMain.AddSongToCollection(this, song, null);
         }
-        public void Like(Artist artist)
-        {
-            artist.Likes.Add(this);
-            Likees.Add(artist);
-            //NeoMain.Like(artist, this);
-        }
+      
     }
 }
 

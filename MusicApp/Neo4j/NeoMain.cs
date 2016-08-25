@@ -53,12 +53,57 @@ namespace Neo4j
             }
             return ProfilePicture;
         }
-        public void CreatePlaylist(Playlist playlist, List<Song> songs)
+        public void CreatePlaylist(Artist artist, string title)
         {
-            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
-                using(var session = driver.Session())
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
             {
-                session.Run("CREATE (a:Playlist {Title:" + playlist.Title + "} ");
+                session.Run("CREATE (a:Playlist {Title:" + title + "})");
+                session.Run("MATCH (a:Artist {name : " + "'" + artist.Name + "'" + "}),(b:Playlist { Title: " + "'" + title + "'" + "}) CREATE (a)-[:OWNS]->(b)");
+           
+            }
+        }
+        public List<Song> getSongsInPlaylist(Playlist playlist)
+        {
+            List<Song> songs = new List<Song>();
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+              var output = session.Run("MATCH(p:Playlist {Title :" + "'" + playlist.Title + "'" + "})-[:IN]-(s:Song) RETURN s.Title as Title, s.ImageFileName as ImageFileName, s.SongFileName as SongFileName");
+
+                foreach(var item in output)
+                {
+                    string Title = ($"{ item["Title"].As<string>()}");
+                    string SongFileName = ($"{ item["SongFileName"].As<string>()}");
+                    string ImageFileName = ($"{ item["ImageFileName"].As<string>()}");
+                    Song song = new Song(Title, SongFileName, ImageFileName);
+                    songs.Add(song);
+                }
+            }
+            return songs;
+        }
+        public List<Playlist> getPlaylists(Artist owner)
+        {
+            List<Playlist> playlists = new List<Playlist>();
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                var output = session.Run("MATCH(a:Artist{ name: " + "'" + owner.Name + "'" + "})-[:OWNS]->(b:Playlist) RETURN b.Title as Title");
+                foreach (var item in output)
+                {
+                    string Title = ($"{ item["Title"].As<string>()}");
+                    Playlist playlist = new Playlist(Title, owner);
+                    playlists.Add(playlist);
+                }
+            }
+            return playlists;
+       }
+        public void addSongToPlaylist(Playlist playlist, Song song)
+        {
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                session.Run("MATCH (a:Playlist {Title:" + "'" + playlist.Title + "'" + "}), (b:Song {Title: " + "'" + song.Title + "'" + "}) CREATE (b)-[:IN]->(a)");
             }
         }
         public void CreateSong(Song song, Artist artist)
@@ -105,22 +150,23 @@ namespace Neo4j
         {
 
             Artist arty = null;
+            Artist finalArtist = null;
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
                
-             var output = session.Run("MATCH (b:Artist {name: " + "'" + name + "'" + "}) return b.name as name");
+             var output = session.Run("MATCH (b:Artist {name: " + "'" + name + "'" + "}) return b.name as name, b.Email as Email");
                 string artistName;
                 foreach (var item in output)
                 {
                     artistName = ($"{ item["name"].As<string>()}");
-                   // string artistEmail = ($"{ item["Email"].As<string>()}");
-                     arty = new Artist(artistName, artistName);
+                   string artistEmail = ($"{ item["Email"].As<string>()}");
+                     arty = new Artist(artistName, artistEmail);
+                     
                 }
-
+                finalArtist = new Artist(arty.Name, arty.Email, getSongs(arty), getFriends(arty), getPeopleYouFollow(arty), getFollowers(arty));
             }
-            return arty;
-
+            return finalArtist;
             }
         public void AddFriend(Artist fromArtist, Artist toArtist)
         {
@@ -156,7 +202,10 @@ namespace Neo4j
                 session.Run("MATCH(b:Artist {name: " +"'" + follower.Name +"'"+ "}), (c:Artist {name: " +"'"+ followee.Name +"'" + "}) CREATE (b)-[:FOLLOWING]->(c)");
             }
         }
-        public List<Song> getSongs(Artist artist, string path)
+
+
+        
+        public List<Song> getSongs(Artist artist)
         {
             List<Song> songs = new List<Song>();
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
@@ -176,6 +225,37 @@ namespace Neo4j
             }
             return songs;
         }
+        public List<Artist> getPeopleYouFollow(Artist artist)
+        {
+            List<Artist> artists = new List<Artist>();
+
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})-[r:FOLLOWING]->(b:Artist) return b.name as name, b.Email as Email");
+                foreach (var record in result)
+                {
+                    string output = ($"{ record["name"].As<string>()}");
+                    string Email = ($"{ record["Email"].As<string>()}");
+                    Artist artist1 = new Artist(output, Email);
+                    artists.Add(artist1);
+                }
+
+            }
+            return artists;
+
+       }
+        public List<Song> getMostLiked()
+        {
+            List<Song> songs = new List<Song>();
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH (a:Artist)-[:LIKES]->(s:Song) WITH a,count(s) as rels, collect(s) as songs WHERE rels > 1 RETURN a, songs.Name as Name, songs.Owner as Owner, rels");
+
+            }
+            return songs;
+        }
 
         public List<Artist> getFollowers(Artist artist)
         {
@@ -185,7 +265,7 @@ namespace Neo4j
             using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2,0], authTokens[2,1])))
             using (var session = driver.Session())
             {
-                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})-[:FOLLOWING]-> (b:Artist) return b.name as name, b.Email as Email");
+                var result = session.Run("MATCH (a:Artist {name: " + "'" + artist.Name + "'" + "})<-[:FOLLOWING]-(b:Artist) return b.name as name, b.Email as Email");
                 foreach (var record in result)
                 {
                     string output = ($"{ record["name"].As<string>()}");
@@ -196,6 +276,30 @@ namespace Neo4j
                  
             }
             return artists;
+        }
+        public bool isFollowing(Artist mainArtist, Artist searchedArtist)
+        {
+            bool isfollow = false;
+            using (var driver = GraphDatabase.Driver(boltEndpoint[2], AuthTokens.Basic(authTokens[2, 0], authTokens[2, 1])))
+            using (var session = driver.Session())
+            {
+                var result = session.Run("MATCH (a:Artist {name: " + "'" + mainArtist.Name + "'" + "})-[:FOLLOWING]->(b:Artist {name:" + "'" + searchedArtist.Name + "'" + " }) RETURN b.Name as Name");
+
+                foreach(var record in result)
+                {
+                    string name = ($"{ record["name"].As<string>()}");
+                    if(name == searchedArtist.Name)
+                    {
+                        isfollow = true;
+                    }
+                    else
+                    {
+                        isfollow = false;
+                    }
+                }
+
+            }
+            return isfollow;
         }
         public List<Artist> getAllArtist()
         {

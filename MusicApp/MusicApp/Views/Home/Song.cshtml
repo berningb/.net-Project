@@ -4,18 +4,35 @@
     ViewBag.Title = "Song";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src=@Url.Content("~/Scripts/song.js")></script>
 
 
-@{ 
+<div id="songWave"></div>
+<div class="wrapper">
+    <div id="muteUnmute" onclick="muteSound()">Mute</div>
+    <div><input id="volumeSlider" type="range" min="0" max="1" value=".5" step=".01" onchange="volumeChanged(this.value)" /></div>
+    <div onclick="rewind()">Rewind</div>
+    <div onclick="fastForward()">Fast Forward</div>
+    <div id="playPause" onclick="togglePlay()">Pause</div>
+    <div onclick="speedUp()">Speed Up</div>
+    <div onclick="slowDown()">Slow Down</div>
+    <div onclick="restart()">Restart</div>
+</div>
+<br />
+
+@{
     foreach (var item in Model)
     {
-        if(item.Title == ViewBag.id)
+        if (item.Title == ViewBag.id)
         {
             Song song = item;
-            <span>Song Name:</span>
-            <p>@song.Title</p>
-            <span>Owner:</span> <p>@song.Owner.Name</p>
-            <img src="~/Content/Images/@(song.ImageFileName)" height="100" width="100"/>
+
+                <p id="SONGSongName">@song.Title</p>
+
+                <p id="SONGOwnerName">@song.Owner.Name</p>
+                <img id="SONGUserImage" src="~/Content/Images/@(song.Owner.ProfilePicture)" height="100" width="100" />
+
+                <p id="hiddenSong" hidden>@song.SongFileName</p>
         }
     }
 }
