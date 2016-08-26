@@ -50,7 +50,7 @@ namespace MusicApp.Controllers
         }
 
 
-        public ActionResult ProfilePage(string name)
+        public ActionResult ProfilePage()
         {
             CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("container");
@@ -82,7 +82,7 @@ namespace MusicApp.Controllers
             }
     
             
-            Artist MainArty = neo.getArtistById(name);
+            Artist MainArty = neo.getArtist(artistName);
             MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
             ViewBag.username = artistName;

@@ -30,7 +30,7 @@
     <p id="SONGSongName">@song.Title</p>
             <div id="SONGSongDiv">
 
-               <img class="img-circle" src="~/Content/Images/@item.ImageFileName" width="200" height="200"/>
+               <img class="img-circle" src="~/Content/Images/@(item.Owner.ProfilePicture)" width="200" height="200"/>
 
                 <p id="SONGOwnerName">
                     @song.Owner.Name
