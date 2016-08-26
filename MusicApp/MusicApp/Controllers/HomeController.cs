@@ -50,7 +50,7 @@ namespace MusicApp.Controllers
         }
 
 
-        public ActionResult ProfilePage(string name)
+        public ActionResult ProfilePage()
         {
 
             CloudBlobClient blobClient = blobAccount.CreateCloudBlobClient();
@@ -59,7 +59,7 @@ namespace MusicApp.Controllers
 
             string folder = Path.GetDirectoryName(Server.MapPath("~/Content/MP3/"));
             string imgfolder = Path.GetDirectoryName(Server.MapPath("~/Content/Images/"));
-            Artist arty = neo.getArtist(artistName);
+            Artist arty = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
             List<Song> songs = neo.getSongs(arty);
             foreach (Song s in songs)
             {
@@ -94,7 +94,7 @@ namespace MusicApp.Controllers
             }
 
 
-            Artist MainArty = neo.getArtistById(name);
+            Artist MainArty = neo.getArtist(web.HttpContext.Current.User.Identity.Name);
             MainArty.ProfilePicture = neo.GetProfilePicture(MainArty);
 
             ViewBag.username = artistName;
