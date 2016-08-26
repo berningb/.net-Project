@@ -37,10 +37,13 @@ textarea {
     display: flex;
     align-items: center;
 }
-
+img{
+     background-image:url('~/Content/Images/ProfilePic_img.jpg')
+}
 .img {
     height: 200px;
     width: 200px;
+   
 }
 
 .box {
