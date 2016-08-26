@@ -9,14 +9,33 @@
 
 <div id="songWave"></div>
 <div class="wrapper">
-    <div id="muteUnmute" onclick="muteSound()">Mute</div>
+    <div class="musicButtons" onclick="muteSound()">Mute</div>
     <div><input id="volumeSlider" type="range" min="0" max="1" value=".5" step=".01" onchange="volumeChanged(this.value)" /></div>
-    <div onclick="rewind()">Rewind</div>
-    <div onclick="fastForward()">Fast Forward</div>
-    <div id="playPause" onclick="togglePlay()">Pause</div>
-    <div onclick="speedUp()">Speed Up</div>
-    <div onclick="slowDown()">Slow Down</div>
-    <div onclick="restart()">Restart</div>
+    <div class="musicButtons" onclick="rewind()">Rewind</div>
+    <div class="musicButtons" onclick="fastForward()">Fast Forward</div>
+    <div class="musicButtons" id="playPause" onclick="togglePlay()">Pause</div>
+    <div class="musicButtons" onclick="speedUp()">Speed Up</div>
+    <div class="musicButtons" onclick="slowDown()">Slow Down</div>
+    <div class="musicButtons" onclick="restart()">Restart</div>
+    <button onclick="addToPlaylist();" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-plus"></span> Add to Playlist
+    </button>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Choose a Playlist</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="display"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <br />
 
