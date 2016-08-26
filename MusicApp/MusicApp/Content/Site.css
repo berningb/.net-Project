@@ -292,4 +292,12 @@ body {
 .musicButtons {
     border: 2px black solid;
     cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 1%;
+    height: 20px;
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 1px;
+    background-color: white;
 }
