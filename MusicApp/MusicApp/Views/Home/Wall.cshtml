@@ -1,4 +1,5 @@
-﻿
+﻿@using Neo4j
+@model List<Song>
 @{
     ViewBag.Title = "Wall";
 }
@@ -9,7 +10,8 @@
 @{ 
     foreach (var item in Model)
     {
-        <h3>@item.Title</h3>
+        <h3><a href="Song/@(item.Title)">@item.Title</a></h3>
+        <img class="img-circle" src="~/Content/Images/@item.ImageFileName" height="150" width="150">
     }
 }
 
